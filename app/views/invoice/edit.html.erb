@@ -1,0 +1,48 @@
+<h1>Edit Invoice</h1>
+<%= form_for :invoice,  url: invoice_index_path do |f| %>
+
+    <% if @invoice.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@invoice.errors.count, "error") %> prohibited
+            this invoice from being saved:
+          </h2>
+          <ul>
+            <% @invoice.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <p>
+      <%= f.label :Date %><br>
+      <%= f.text_field :start_date %>
+    </p>
+
+    <p>
+      <%= f.label :Merchant %><br>
+      <%= f.text_field :merchant %>
+    </p>
+
+    <p>
+      <%= f.label :Credit %><br>
+      <%= f.text_field :credit %>
+    </p>
+
+    <p>
+      <%= f.label :Debit %><br>
+      <%= f.text_field :debit %>
+    </p>
+
+    <p>
+      <%= f.label :Quantity %><br>
+      <%= f.text_field :quantity %>
+    </p>
+
+    <%= f.submit   %>
+
+<% end %>
+
+<br>
+
+<%= link_to 'Back to invoices', invoice_index_path	  %>
