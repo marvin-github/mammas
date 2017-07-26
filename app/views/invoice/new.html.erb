@@ -1,3 +1,4 @@
+<div class="container">
 <h1>Create Invoice</h1>
 <%= form_for :invoice,  url: invoice_index_path do |f| %>
 
@@ -14,35 +15,35 @@
           </ul>
         </div>
     <% end %>
-    <p>
-      <%= f.label :Date%><br>
-      <%= f.text_field :start_date %>
-    </p>
 
-    <p>
-      <%= f.label :Merchant %><br>
-      <%= f.text_field :merchant %>
-    </p>
+      <div class="form-group">
+        <%= label_tag :start_date, "Date" %>
+        <%= f.text_field :start_date, class: "form-control", value: "#{Time.now.strftime("%Y-%m-%d")}" %>
+      </div>
 
-    <p>
-      <%= f.label :Credit %><br>
-      <%= f.text_field :credit %>
-    </p>
+      <div class="form-group">
+        <%= label_tag :merchant, "Merchant" %>
+        <%= f.select :merchant_id, Merchant.all.collect {|m| [m.merchant_name, m.id]}, include_blank: true, class: "form-control" %>
+      </div>
 
-    <p>
-      <%= f.label :Debit %><br>
-      <%= f.text_field :debit %>
-    </p>
+      <div class="form-group">
+        <%= label_tag :credit, "Credit" %>
+        <%= f.text_field :credit, class: "form-control" %>
+      </div>
 
-    <p>
-      <%= f.label :Quantity %><br>
-      <%= f.text_field :quantity %>
-    </p>
+      <div class="form-group">
+        <%= label_tag :debit, "Debit" %>
+        <%= f.text_field :debit, class: "form-control" %>
+      </div>
 
-    <%= f.submit   %>
+      <div class="form-group">
+        <%= label_tag :quantity, "Quantity" %>
+        <%= f.text_field :quantity, class: "form-control" %>
+      </div>
+
+
+      <%= submit_tag "Submit", class: "btn btn-default" %>
 
 <% end %>
 
-<br>
-
-<%= link_to 'Main Menu', menu_index_path	  %>
+</div>

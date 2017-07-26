@@ -1,29 +1,31 @@
+<div class="container">
+  <h1>Listing Invoices</h1>
 
-<h1>Listing Invoices</h1>
-
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Merchant</th>
-    <th>Debit</th>
-    <th>Credit</th>
-    <th>Quantity</th>
-  </tr>
-
-  <% @invoice.each do |i| %>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
       <tr>
-        <td><%= i.start_date.strftime("%m/%d/%Y") %></td>
-        <td><%= i.merchant %></td>
-        <td><%= i.debit %></td>
-        <td><%= i.credit %></td>
-        <td><%= i.quantity %></td>
-        <td><%= link_to 'Show', invoice_path(i) %></td>
-        <td><%= link_to 'Edit', edit_invoice_path(i) %></td>
+        <th>Date</th>
+        <th>Merchant</th>
       </tr>
-  <% end %>
-</table>
+      </thead>
+      <tbody>
+      <% @invoice.each do |i| %>
+          <tr>
+            <td><%= i.start_date.strftime("%Y-%m-%d") %></td>
+            <td><%= i.merchant.merchant_name %></td>
+
+            <td><%= link_to 'Show', invoice_path(i) %></td>
+            <td><%= link_to 'Edit', edit_invoice_path(i) %></td>
+            <td><%= link_to 'Delete', invoice_path(i), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <br>
 
-<%= link_to "Main Menu", menu_index_path	  %>
+
 
