@@ -1,23 +1,27 @@
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Merchant</th>
-    <th>Debit</th>
-    <th>Credit</th>
-    <th>Quantity</th>
-  </tr>
+<div class="container">
+  <h1>Listing Invoices</h1>
 
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>Merchant</th>
+      </tr>
+      </thead>
+      <tbody>
 
-  <tr>
-    <td><%= @invoice.start_date.strftime("%m/%d/%Y") %></td>
-    <td><%= @invoice.merchant %></td>
-    <td><%= @invoice.debit %></td>
-    <td><%= @invoice.credit %></td>
-    <td><%= @invoice.quantity %></td>
-  </tr>
+          <tr>
+            <td><%= @invoice.start_date.strftime("%Y-%m-%d") %></td>
+            <td><%= @invoice.merchant.merchant_name %></td>
 
-</table>
+            <td><%= link_to 'Show', invoice_path %></td>
+            <td><%= link_to 'Edit', edit_invoice_path %></td>
+            <td><%= link_to 'Delete', invoice_path, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          </tr>
 
-<br>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<%= link_to "Back to invoices", invoice_index_path	  %>

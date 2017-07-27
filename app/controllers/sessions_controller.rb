@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
 
       redirect_to menu_index_path
     else
+      flash[:danger] = 'Invalid email or password'
       redirect_to '/login'
     end
   end
