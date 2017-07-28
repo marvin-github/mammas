@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Listing Invoices</h1>
+  <h1>List Invoice</h1>
 
   <div class="table-responsive">
     <table class="table">
@@ -22,6 +22,7 @@
 
       </tbody>
     </table>
+    <%= link_to 'Print', invoice_display_pdf_path(:invoice => @invoice.id)  %>
   </div>
 </div>
 

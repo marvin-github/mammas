@@ -54,6 +54,20 @@ class InvoiceController < ApplicationController
     redirect_to invoice_index_path
   end
 
+  def display_pdf
+    @invoice = Invoice.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = InvoicePdf.new(@invoice)
+        send_data pdf.render,
+                  filename: 'invoice.pdf',
+                  type: 'application/pdf',
+                  disposition: 'inline'
+        end
+      end
+  end
+
 private
   def invoice_params
     params.require(:invoice).permit(:start_date, :merchant_id, :credit, :debit, :quantity)

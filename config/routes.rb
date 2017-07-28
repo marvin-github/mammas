@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   get 'menu/index'
   resources :invoice
-
+  get '/invoice/display_pdf/:id' => 'invoice#display_pdf'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

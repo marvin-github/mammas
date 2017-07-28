@@ -99,6 +99,10 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
+    pdf-core (0.6.1)
+    prawn (2.1.0)
+      pdf-core (~> 0.6.1)
+      ttfunk (~> 1.4.0)
     public_suffix (2.0.5)
     puma (3.9.1)
     rack (2.0.3)
@@ -162,6 +166,7 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    ttfunk (1.4.0)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.3)
@@ -193,6 +198,7 @@ DEPENDENCIES
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.3.18, < 0.5)
+  prawn
   puma (~> 3.7)
   rails (~> 5.1.2)
   sass-rails (~> 5.0)
