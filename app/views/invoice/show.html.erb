@@ -22,7 +22,7 @@
 
       </tbody>
     </table>
-    <%= link_to 'Print', invoice_display_pdf_path(:invoice => @invoice.id)  %>
+    <%= link_to 'Print', print_path(:invoice => @invoice, format: "pdf")  %>
   </div>
 </div>
 

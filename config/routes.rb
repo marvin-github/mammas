@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
 
+  get 'merchant/show'
+
+  get 'merchant/edit'
+
+  resources :merchant
+
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
@@ -15,7 +21,9 @@ Rails.application.routes.draw do
 
   get 'menu/index'
   resources :invoice
-  get '/invoice/display_pdf/:id' => 'invoice#display_pdf'
+  get '/invoice/display_pdf/:id', to: 'invoice#display_pdf', as: 'print'
+
+  #get '/patients/:id', to: 'patients#show', as: 'patient'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

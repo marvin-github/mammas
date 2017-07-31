@@ -61,11 +61,11 @@ class InvoiceController < ApplicationController
       format.pdf do
         pdf = InvoicePdf.new(@invoice)
         send_data pdf.render,
-                  filename: 'invoice.pdf',
-                  type: 'application/pdf',
-                  disposition: 'inline'
-        end
+        filename: 'invoice.pdf',
+        type: 'application/pdf',
+        disposition: 'inline'
       end
+    end
   end
 
 private

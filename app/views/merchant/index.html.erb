@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>Listing Merchants</h1>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Merchant</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @merchant.each do |m| %>
+          <tr>
+            <td><%= m.merchant_name %></td>
+            <td><%= m.address1 %></td>
+            <td><%= link_to 'Edit', merchant_path(m) %></td>
+          </tr>
+
+
+
+
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<br>
+
+
+
