@@ -20,10 +20,10 @@ Rails.application.routes.draw do
   root to: 'gif#cool'
 
   get 'menu/index'
+  get '/invoice/download', to: 'invoice#download'
   resources :invoice
   get '/invoice/display_pdf/:id', to: 'invoice#display_pdf', as: 'print'
 
-  #get '/patients/:id', to: 'patients#show', as: 'patient'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

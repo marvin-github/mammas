@@ -5,7 +5,6 @@ class InvoiceController < ApplicationController
   def index
     @invoice = Invoice.all
 
-
   end
 
   def new
@@ -67,6 +66,16 @@ class InvoiceController < ApplicationController
       end
     end
   end
+
+  def download
+    @invoice = Invoice.all
+    respond_to do |format|
+      puts '*********send data'
+      format.html
+      format.csv {send_data @invoice.to_csv, filename: "invoice-#{Date.today}.csv"}
+    end
+  end
+
 
 private
   def invoice_params
