@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   get '/cool' => 'gif#cool'
   get '/sweet' => 'gif#sweet'
 
-  root to: 'gif#cool'
-
+  #root to: 'gif#cool'
+  root to: 'sessions#new'
   get 'menu/index'
   get '/invoice/download', to: 'invoice#download'
   resources :invoice

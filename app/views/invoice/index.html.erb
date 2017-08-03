@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Listing Invoices</h1>
+  <h1>Invoices</h1>
 
   <div class="table-responsive">
     <table class="table">
@@ -13,16 +13,16 @@
       <% @invoice.each do |i| %>
           <tr>
             <td><%= i.start_date.strftime("%Y-%m-%d") %></td>
-            <td><%= i.merchant.merchant_name %></td>
+            <td><%= link_to "#{i.merchant.merchant_name}", invoice_path(i) %></td>
 
-            <td><%= link_to 'Show', invoice_path(i) %></td>
-            <td><%= link_to 'Edit', edit_invoice_path(i) %></td>
-            <td><%= link_to 'Delete', invoice_path(i), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+            <!--<td><%= link_to 'Show', invoice_path(i) %></td>-->
+            <td><%= link_to 'Edit', edit_invoice_path(i), :class => "btn btn-primary" %></td>
+            <!--<td><%= link_to 'Delete', invoice_path(i), method: :delete, data: {confirm: 'Are you sure?'} %></td> -->
           </tr>
       <% end %>
       </tbody>
     </table>
-    <%= link_to 'Download', invoice_download_path(format: "csv")  %>
+    <%= link_to 'Download', invoice_download_path(format: "csv"), :class => "btn btn-primary"  %>
   </div>
 
 </div>

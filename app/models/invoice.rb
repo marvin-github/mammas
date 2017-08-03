@@ -7,7 +7,7 @@ class Invoice < ApplicationRecord
   validates :quantity, numericality: { message: "%{value} seems wrong" }, allow_nil: true
 
   def self.to_csv
-    attributes = %w{id start_date merchant_id credit debit quantity user_id}
+    attributes = %w{id start_date merchant_name credit debit quantity user_name}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
@@ -18,5 +18,11 @@ class Invoice < ApplicationRecord
     end
   end
 
+  def merchant_name
+      "#{merchant.merchant_name}"
+  end
 
+  def user_name
+    "#{user.name}"
+  end
 end
