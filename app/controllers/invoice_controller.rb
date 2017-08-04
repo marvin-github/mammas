@@ -34,8 +34,10 @@ class InvoiceController < ApplicationController
   end
 
   def update
-    @invoice = Invoice.find(params[:id])
+    puts params[:quantity]
 
+    puts '***************'
+    @invoice = Invoice.find(params[:id])
     if @invoice.update(invoice_params)
       redirect_to @invoice
     else
@@ -70,7 +72,6 @@ class InvoiceController < ApplicationController
   def download
     @invoice = Invoice.all
     respond_to do |format|
-      puts '*********send data'
       format.html
       format.csv {send_data @invoice.to_csv, filename: "invoice-#{Date.today}.csv"}
     end
@@ -80,6 +81,7 @@ class InvoiceController < ApplicationController
 private
   def invoice_params
     params.require(:invoice).permit(:start_date, :merchant_id, :credit, :debit, :quantity)
+
   end
 
 end

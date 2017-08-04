@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Edit Invoice</h1>
-  <%= form_for :invoice,  url: invoice_index_path do |f| %>
+  <%= form_for :invoice,  url: invoice_path, method: :patch do |f| %>
 
       <% if @invoice.errors.any? %>
           <div id="error_explanation">
@@ -18,7 +18,7 @@
 
       <div class="form-group">
         <%= label_tag :start_date, "Date" %>
-        <%= f.text_field :start_date, value: @invoice.start_date.strftime("%m-%d-%Y"), class: "form-control" %>
+        <%= f.text_field :start_date, value: @invoice.start_date.strftime("%Y-%m-%d"), class: "form-control" %>
       </div>
 
       <div class="form-group">

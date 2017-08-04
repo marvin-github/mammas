@@ -13,10 +13,10 @@
 
           <tr>
             <td><%= @invoice.start_date.strftime("%Y-%m-%d") %></td>
-            <td><%= link_to "#{@invoice.merchant.merchant_name}", invoice_path %></td>
+            <td><%= @invoice.merchant.merchant_name %></td>
 
             <!--<td><%= link_to 'Show', invoice_path %></td>-->
-            <td><%= link_to 'Edit', edit_invoice_path %></td>
+            <td><%= link_to 'Edit', edit_invoice_path(@invoice) %></td>
             <!-- <td><%= link_to 'Delete', invoice_path, method: :delete, data: {confirm: 'Are you sure?'} %></td> -->
           </tr>
 
