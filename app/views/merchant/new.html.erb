@@ -1,20 +1,20 @@
 <div class="container">
-  <h1>Edit Merchant</h1>
-  <%= form_for :merchant,   url: merchant_path, method: :patch do |f| %>
+<h1>Create Merchant</h1>
+<%= form_for :merchant,  url: merchant_index_path do |f| %>
 
-      <% if @merchant.errors.any? %>
-          <div id="error_explanation">
-            <h2>
-              <%= pluralize(@merchant.errors.count, "error") %> prohibited
-              this merchant from being saved:
-            </h2>
-            <ul>
-              <% @merchant.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-      <% end %>
+    <% if @merchant.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@merchant.errors.count, "error") %> prohibited
+            this merchant from being saved:
+          </h2>
+          <ul>
+            <% @merchant.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
 
       <div class="form-group">
         <%= label_tag :merchant_name, "Name" %>
@@ -59,6 +59,6 @@
 
       <%= submit_tag "Submit", class: "btn btn-primary" %>
 
-  <% end %>
+<% end %>
 
 </div>

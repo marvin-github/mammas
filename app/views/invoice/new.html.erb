@@ -17,28 +17,43 @@
     <% end %>
 
       <div class="form-group">
-        <%= label_tag :start_date, "Date" %>
-        <%= f.text_field :start_date, class: "form-control", value: "#{Time.now.strftime("%Y-%m-%d")}" %>
-      </div>
-
-      <div class="form-group">
         <%= label_tag :merchant, "Merchant" %>
         <%= f.select :merchant_id, Merchant.all.collect {|m| [m.merchant_name, m.id]}, include_blank: true, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= label_tag :credit, "Credit" %>
-        <%= f.text_field :credit, class: "form-control" %>
+        <%= label_tag :start_date, "Date" %>
+        <%= f.text_field :start_date, class: "form-control", value: "#{Time.now.strftime("%Y-%m-%d")}" %>
       </div>
 
       <div class="form-group">
-        <%= label_tag :debit, "Debit" %>
-        <%= f.text_field :debit, class: "form-control" %>
+        <%= label_tag :upc, "Upc #" %>
+        <%= f.text_field :upc, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :description, "Product Description" %>
+        <%= f.text_field :description, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :price, "Price" %>
+        <%= f.text_field :price, class: "form-control" %>
       </div>
 
       <div class="form-group">
         <%= label_tag :quantity, "Quantity" %>
         <%= f.text_field :quantity, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :extra_cases, "Extra cases" %>
+        <%= f.text_field :extra_cases, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :extended_cost, "Extended cost" %>
+        <%= f.text_field :extended_cost, class: "form-control" %>
       </div>
 
 

@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-
-  get 'merchant/show'
-
-  get 'merchant/edit'
-
   resources :merchant
 
   get '/login' => 'sessions#new'

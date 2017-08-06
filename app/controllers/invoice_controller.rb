@@ -10,8 +10,6 @@ class InvoiceController < ApplicationController
   def new
     @invoice = Invoice.new
 
-
-
   end
 
   def show
@@ -34,9 +32,6 @@ class InvoiceController < ApplicationController
   end
 
   def update
-    puts params[:quantity]
-
-    puts '***************'
     @invoice = Invoice.find(params[:id])
     if @invoice.update(invoice_params)
       redirect_to @invoice
@@ -80,7 +75,7 @@ class InvoiceController < ApplicationController
 
 private
   def invoice_params
-    params.require(:invoice).permit(:start_date, :merchant_id, :credit, :debit, :quantity)
+    params.require(:invoice).permit(:start_date, :merchant_id, :price, :debit, :quantity, :description, :upc, :extra_cases, :extended_cost)
 
   end
 

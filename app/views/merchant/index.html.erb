@@ -1,8 +1,8 @@
 <div class="container">
-  <h1>Listing Merchants</h1>
+  <h1>List Merchants</h1>
 
   <div class="table-responsive">
-    <table class="table">
+    <table class="table table-striped">
       <thead>
       <tr>
         <th>Merchant</th>
@@ -13,7 +13,7 @@
           <tr>
             <td><%= m.merchant_name %></td>
             <td><%= m.address1 %></td>
-            <td><%= link_to 'Edit', merchant_path(m) %></td>
+            <td><%= link_to 'Edit', edit_merchant_path(m), :class => "btn btn-warning"  %></td>
           </tr>
 
 

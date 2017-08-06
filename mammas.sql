@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.12, for osx10.11 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: mammas
 -- ------------------------------------------------------
--- Server version	5.7.12-log
+-- Server version	5.7.18
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,12 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Position to start replication or point-in-time recovery from
---
-
--- CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000069', MASTER_LOG_POS=154;
 
 --
 -- Table structure for table `employees`
@@ -58,12 +52,18 @@ CREATE TABLE `invoices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `start_date` datetime DEFAULT NULL,
   `merchant_id` int(11) DEFAULT NULL,
-  `credit` decimal(11,2) DEFAULT NULL,
+  `price` decimal(11,2) DEFAULT NULL,
   `debit` decimal(11,2) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `description` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `upc` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `extra_cases` int(11) DEFAULT NULL,
+  `extended_cost` decimal(11,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `invoices` (
 
 LOCK TABLES `invoices` WRITE;
 /*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
-INSERT INTO `invoices` VALUES (15,'2017-07-26 00:00:00',1,1.00,NULL,1,3),(16,'2017-07-26 00:00:00',2,NULL,3.00,2,3);
+INSERT INTO `invoices` VALUES (15,'2017-07-26 00:00:00',1,1.00,NULL,1222,3,NULL,'2017-08-05 19:45:56',NULL,NULL,NULL,NULL),(16,'2017-07-26 00:00:00',2,NULL,3.00,2,3,NULL,NULL,NULL,NULL,NULL,NULL),(17,'2017-07-28 00:00:00',1,1.00,NULL,1,3,NULL,NULL,NULL,NULL,NULL,NULL),(18,'2017-07-29 00:00:00',1,1.00,NULL,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL),(19,'2017-07-29 00:00:00',1,2.00,NULL,2,3,NULL,NULL,NULL,NULL,NULL,NULL),(20,'2017-07-29 00:00:00',1,2.00,NULL,2,3,NULL,NULL,NULL,NULL,NULL,NULL),(21,'2017-07-29 00:00:00',1,1.00,NULL,1,3,NULL,NULL,NULL,NULL,NULL,NULL),(22,'2017-07-29 00:00:00',2,1.00,1.00,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL),(23,'2017-07-29 00:00:00',1,1.00,NULL,1,3,NULL,NULL,NULL,NULL,NULL,NULL),(24,'2017-07-29 00:00:00',1,1.00,NULL,1,3,NULL,NULL,NULL,NULL,NULL,NULL),(25,'2017-07-29 00:00:00',1,4.00,NULL,4,3,NULL,NULL,NULL,NULL,NULL,NULL),(26,'2017-07-29 00:00:00',1,1.00,NULL,1,3,NULL,NULL,NULL,NULL,NULL,NULL),(27,'2017-07-29 00:00:00',1,1.00,NULL,1,3,NULL,NULL,NULL,NULL,NULL,NULL),(28,'2017-07-29 00:00:00',1,1.00,NULL,1,3,NULL,NULL,NULL,NULL,NULL,NULL),(29,'2017-07-29 00:00:00',1,1.00,NULL,1,3,NULL,NULL,NULL,NULL,NULL,NULL),(30,'2017-07-29 00:00:00',1,22.00,NULL,22,3,NULL,NULL,NULL,NULL,NULL,NULL),(31,'2017-07-29 00:00:00',1,2.00,2.00,NULL,3,NULL,NULL,NULL,NULL,NULL,NULL),(32,'2017-08-05 00:00:00',3,2.00,NULL,22,3,'2017-08-05 19:30:01','2017-08-05 19:30:01',NULL,NULL,NULL,NULL),(33,'2017-08-05 00:00:00',2,2.00,NULL,333,3,'2017-08-05 19:31:56','2017-08-05 19:32:06',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,10 +86,17 @@ DROP TABLE IF EXISTS `merchants`;
 CREATE TABLE `merchants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `merchant_name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `store_number` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `employee_id` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address1` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address2` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `city` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `state` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `zip` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +105,7 @@ CREATE TABLE `merchants` (
 
 LOCK TABLES `merchants` WRITE;
 /*!40000 ALTER TABLE `merchants` DISABLE KEYS */;
-INSERT INTO `merchants` VALUES (1,'hy vee store 100',NULL,NULL),(2,'hy vee store 200',NULL,NULL),(3,'bakers store 10',NULL,NULL);
+INSERT INTO `merchants` VALUES (1,'hy vee store 100','123 main st',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,'hy vee store 200','123 main st','','omaha','','','','',NULL,'2017-08-05 22:36:43'),(3,'bakers store 10','123 main st',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'taco johns','c st','m st','omaha','ne','68111','402-222-2222','taca@cox.net','2017-08-05 22:16:09','2017-08-05 22:35:36'),(5,'mammas','','','','','','','','2017-08-05 23:40:52','2017-08-05 23:40:52'),(6,'menards','','','','','','','','2017-08-05 23:42:20','2017-08-05 23:42:20'),(7,'no frills','abc st','','','','','','','2017-08-05 23:47:20','2017-08-05 23:47:32'),(8,'hectors','','','omaha','','','','','2017-08-05 23:48:22','2017-08-05 23:48:39');
 /*!40000 ALTER TABLE `merchants` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-27 15:29:42
+-- Dump completed on 2017-08-05 19:17:56
