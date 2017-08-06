@@ -75,7 +75,7 @@ class InvoiceController < ApplicationController
 
 private
   def invoice_params
-    params.require(:invoice).permit(:start_date, :merchant_id, :price, :debit, :quantity, :description, :upc, :extra_cases, :extended_cost)
+    params.require(:invoice).permit(:start_date, :merchant_id, :price, :quantity, :description, :upc, :extra_cases, :extended_cost)
 
   end
 
