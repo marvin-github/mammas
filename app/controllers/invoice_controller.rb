@@ -21,6 +21,8 @@ class InvoiceController < ApplicationController
   def create
 
     @invoice = Invoice.new(invoice_params)
+    #@items = Item.find(params[:selections])
+    #puts @items.inspect
 
     @invoice.user_id = session[:user_id]
     puts @invoice.inspect
@@ -33,6 +35,7 @@ class InvoiceController < ApplicationController
   end
 
   def update
+
     @invoice = Invoice.find(params[:id])
     if @invoice.update(invoice_params)
       redirect_to @invoice

@@ -33,17 +33,19 @@
         <%= label_tag :description, "Description" %>
         <%= f.text_field :description, class: "form-control" %>
       </div>
-      <% @item.each do |i| %>
-      <div class="form-group" ><%= check_box_tag 'selections[]', i.id, false %>
-        <%= label_tag :item, i.description %>
-        <%= f.text_field :quantity, class: "form-control" %>
-      </div>
+
+      <div class="table-responsive", class="table table-striped">
+        <table class="table">
+          <% @item.each do |i| %>
+            <tr>
+              <td><%= check_box_tag 'selections[]', i.id, false %></td>
+              <td><%= label_tag :item, i.description %></td>
+              <td><%= f.text_field :quantity,  placeholder: "0" %></td>
+            </tr>
           <% end %>
+        </table>
 
-
-
-
-
+      </div>
       <%= submit_tag "Submit", class: "btn btn-primary" %>
 
 <% end %>
