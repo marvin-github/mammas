@@ -1,6 +1,8 @@
 class Invoice < ApplicationRecord
   belongs_to :merchant
   belongs_to :user
+  has_many :invoice_items
+  has_many :items, through: :invoice_items
   validates :merchant, presence: {message: "Must select merchant"}
   validates :extended_cost, numericality: { message: "%{value} seems wrong" }, allow_nil: true
   validates :price, numericality: { message: "%{value} seems wrong" }, allow_nil: true

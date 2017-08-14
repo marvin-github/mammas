@@ -9,6 +9,7 @@ class InvoiceController < ApplicationController
 
   def new
     @invoice = Invoice.new
+    @item = Item.all
 
   end
 
@@ -72,10 +73,23 @@ class InvoiceController < ApplicationController
     end
   end
 
+  def email_invoice
+    @invoice = Invoice.find(params[:id])
+
+
+    respond_to do |format|
+        InvoiceMailer.welcome_email(@invoice).deliver_later
+
+        format.html { redirect_to(@invoice, notice: 'Invoice was successfully emailed.') }
+        format.json { render json: @invoice, status: :created, location: @invoice }
+
+    end
+
+  end
 
 private
   def invoice_params
-    params.require(:invoice).permit(:start_date, :merchant_id, :price, :quantity, :description, :upc, :extra_cases, :extended_cost)
+    params.require(:invoice).permit(:start_date, :merchant_id, :description)
 
   end
 

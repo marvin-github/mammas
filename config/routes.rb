@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get '/invoice/download', to: 'invoice#download'
   resources :invoice
   get '/invoice/display_pdf/:id', to: 'invoice#display_pdf', as: 'print'
-
+  get '/invoice/email_invoice/:id', to: 'invoice#email_invoice', as: 'email'
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
