@@ -16,18 +16,35 @@ class InvoiceController < ApplicationController
   def show
     @invoice = Invoice.find(params[:id])
 
+
   end
 
   def create
 
     @invoice = Invoice.new(invoice_params)
-    #@items = Item.find(params[:selections])
-    #puts @items.inspect
+    @items = Item.find(params[:selections])
+    cart = InvoiceItem.new
+
+
+
+
+
 
     @invoice.user_id = session[:user_id]
-    puts @invoice.inspect
+
     if @invoice.save
+
       flash[:notice] = "Invoice has been created"
+
+      puts 'lllllllllllllll'
+      puts @invoice.inspect
+      cart.quantity = 99
+      cart.invoice = @invoice
+      cart.item = @items.first
+      puts cart.inspect
+      @invoice.invoice_items << cart
+
+
       redirect_to @invoice
     else
       render 'new'
@@ -92,7 +109,7 @@ class InvoiceController < ApplicationController
 
 private
   def invoice_params
-    params.require(:invoice).permit(:start_date, :merchant_id, :description)
+    params.require(:invoice).permit(:start_date, :merchant_id, :description, :quantity)
 
   end
 
