@@ -23,11 +23,6 @@ class InvoiceController < ApplicationController
 
     @invoice = Invoice.new(invoice_params)
     @items = Item.find(params[:selections])
-    cart = InvoiceItem.new
-
-
-
-
 
 
     @invoice.user_id = session[:user_id]
@@ -36,13 +31,24 @@ class InvoiceController < ApplicationController
 
       flash[:notice] = "Invoice has been created"
 
+      params[:selections].each do |i|
+        x = Item.find(i)
+        puts 'kkkkkkkkkk'
+
+
+        cart = InvoiceItem.new
+        cart.invoice = @invoice
+        cart.item = x
+        puts params[:quantity]
+        cart.quantity = params['quantity' + i.to_s]
+        @invoice.invoice_items << cart
+        @invoice.save
+
+      end
+
+
       puts 'lllllllllllllll'
-      puts @invoice.inspect
-      cart.quantity = 99
-      cart.invoice = @invoice
-      cart.item = @items.first
-      puts cart.inspect
-      @invoice.invoice_items << cart
+
 
 
       redirect_to @invoice
