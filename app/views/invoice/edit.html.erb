@@ -28,34 +28,22 @@
 
 
       <div class="form-group">
-        <%= label_tag :upc, "Upc #" %>
-        <%= f.text_field :upc, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
         <%= label_tag :description, "Product Description" %>
         <%= f.text_field :description, class: "form-control" %>
       </div>
 
-      <div class="form-group">
-        <%= label_tag :price, "Price" %>
-        <%= f.text_field :price, class: "form-control" %>
-      </div>
+      <div class="table-responsive", class="table table-striped">
+        <table class="table">
+      <% puts @invoice.inspect%>
+          <% @invoice.invoice_items.each do |i| %>
+              <tr>
+                <td><%= check_box_tag 'selections[]', i.id, false %></td>
+                <td><%= label_tag :item, i.description %></td>
+                <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
 
-
-      <div class="form-group">
-        <%= label_tag :quantity, "Quantity" %>
-        <%= f.text_field :quantity, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= label_tag :extra_cases, "Extra cases" %>
-        <%= f.text_field :extra_cases, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= label_tag :extended_cost, "Extended cost" %>
-        <%= f.text_field :extended_cost, class: "form-control" %>
+              </tr>
+          <% end %>
+        </table>
       </div>
 
       <%= submit_tag "Submit", class: "btn btn-default" %>

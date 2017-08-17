@@ -32,25 +32,17 @@ class InvoiceController < ApplicationController
       flash[:notice] = "Invoice has been created"
 
       params[:selections].each do |i|
-        x = Item.find(i)
-        puts 'kkkkkkkkkk'
-
-
+        item = Item.find(i)
         cart = InvoiceItem.new
         cart.invoice = @invoice
-        cart.item = x
-        puts params[:quantity]
+        cart.item = item
         cart.quantity = params['quantity' + i.to_s]
+        cart.cost = item.unit_cost * cart.quantity
         @invoice.invoice_items << cart
         @invoice.save
 
+
       end
-
-
-      puts 'lllllllllllllll'
-
-
-
       redirect_to @invoice
     else
       render 'new'
@@ -69,7 +61,9 @@ class InvoiceController < ApplicationController
 
   def edit
     @invoice = Invoice.find(params[:id])
-  end
+    print 'lllllllllllll'
+    puts @invoice.invoice_items.inspect
+end
 
   def destroy
     @invoice = Invoice.find(params[:id])
