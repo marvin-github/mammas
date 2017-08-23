@@ -20,28 +20,42 @@ class InvoiceController < ApplicationController
   end
 
   def create
-
     @invoice = Invoice.new(invoice_params)
+    if params[:selections].blank?
+      flash[:danger] = 'Must select at least one item'
+      redirect_to :controller => 'invoice', :action => 'new' and return
+    else
+      params[:selections].each do |i|
+        if params['quantity' + i.to_s].blank? and
+          flash[:danger] = 'Must enter quantity if item is selected'
+          redirect_to :controller => 'invoice', :action => 'new' and return
+        end
+      end
+    end
     @items = Item.find(params[:selections])
-
-
     @invoice.user_id = session[:user_id]
-
     if @invoice.save
-
       flash[:notice] = "Invoice has been created"
-
       params[:selections].each do |i|
         item = Item.find(i)
         cart = InvoiceItem.new
         cart.invoice = @invoice
         cart.item = item
-        cart.quantity = params['quantity' + i.to_s]
-        cart.cost = item.unit_cost * cart.quantity
-        @invoice.invoice_items << cart
-        @invoice.save
-
-
+        unless params['quantity' + i.to_s].blank?
+          cart.quantity = params['quantity' + i.to_s]
+          if @invoice.merchant.discount > 0 and !@invoice.merchant.discount_start_date.nil? and !@invoice.merchant.discount_end_date.nil?
+            range = @invoice.merchant.discount_start_date.strftime("%Y-%m-%d")..@invoice.merchant.discount_end_date.strftime("%Y-%m-%d")
+            if range.include?(Time.now.strftime("%Y-%m-%d"))
+              cart.cost = item.unit_cost * cart.quantity - (cart.quantity * @invoice.merchant.discount)
+            else
+              cart.cost = item.unit_cost * cart.quantity
+            end
+          else
+            cart.cost = item.unit_cost * cart.quantity
+          end
+          @invoice.invoice_items << cart
+          @invoice.save
+        end
       end
       redirect_to @invoice
     else
@@ -52,6 +66,38 @@ class InvoiceController < ApplicationController
   def update
 
     @invoice = Invoice.find(params[:id])
+
+
+    @invoiceItems = Hash.new
+
+    @invoice = Invoice.find(params[:id])
+
+    @invoice.invoice_items.each do |ii|
+      @invoiceItems[ii.item_id] = ii.id
+    end
+
+    @invoice.user_id = session[:user_id]
+      flash[:notice] = "Invoice has been updated"
+      params[:selections].each do |i|
+        item = Item.find(i)
+        if @invoiceItems.member?(item.id)
+          unless params['quantity' + i.to_s].blank?
+            x = InvoiceItem.find (@invoiceItems[item.id])
+            x.quantity = params['quantity' + i.to_s]
+            x.cost = item.unit_cost * x.quantity
+            @invoice.invoice_items << x
+          end
+        else
+          cart = InvoiceItem.new
+          cart.invoice = @invoice
+          unless params['quantity' + i.to_s].blank?
+            cart.item = item
+            cart.quantity = params['quantity' + i.to_s]
+            cart.cost = item.unit_cost * cart.quantity
+            @invoice.invoice_items << cart
+          end
+        end
+      end
     if @invoice.update(invoice_params)
       redirect_to @invoice
     else
@@ -60,15 +106,29 @@ class InvoiceController < ApplicationController
   end
 
   def edit
+    @items = Item.all
+    @invoiceItems = Hash.new
+    @quantities = Hash.new
     @invoice = Invoice.find(params[:id])
-    print 'lllllllllllll'
-    puts @invoice.invoice_items.inspect
+
+    @invoice.invoice_items.each do |ii|
+      @invoiceItems[ii.item_id] = ii.id
+      @quantities[ii.item_id] = ii.quantity
+   end
 end
 
   def destroy
     @invoice = Invoice.find(params[:id])
     @invoice.destroy
     redirect_to invoice_index_path
+  end
+  def delete_item
+    print 'lllllllllllll'
+    puts params.inspect
+    puts params[:invoice].inspect
+    @item = InvoiceItem.find(params[:id])
+    @item.destroy
+    redirect_to action: "edit", id: params[:invoice]
   end
 
   def display_pdf
@@ -109,7 +169,7 @@ end
 
 private
   def invoice_params
-    params.require(:invoice).permit(:start_date, :merchant_id, :description, :quantity)
+    params.require(:invoice).permit(:start_date, :merchant_id, :description)
 
   end
 

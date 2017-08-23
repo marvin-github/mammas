@@ -27,11 +27,6 @@
       </div>
 
       <div class="form-group">
-        <%= label_tag :address2, "Address2" %>
-        <%= f.text_field :address2, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
         <%= label_tag :city, "City" %>
         <%= f.text_field :city, class: "form-control" %>
       </div>
@@ -47,15 +42,37 @@
       </div>
 
       <div class="form-group">
-        <%= label_tag :email, "Email" %>
-        <%= f.text_field :email, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
         <%= label_tag :phone, "Phone" %>
         <%= f.text_field :phone, class: "form-control" %>
       </div>
 
+      <div class="form-group">
+        <%= label_tag :discount, "Discount" %>
+        <%= f.text_field :discount, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :discount_start_date, "Discount Start Date" %>
+        <% unless :discount_start_date.empty? %>
+          <%= f.text_field :discount_start_date, placeholder: "yyyy-mm-dd", class: "form-control" %>
+        <% else %>
+            <%= f.text_field :discount_start_date.strftime("%Y-%m-%d"), class: "form-control" %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :discount_end_date, "Discount End Date" %>
+        <% unless :discount_end_date.empty? %>
+            <%= f.text_field :discount_end_date, placeholder: "yyyy-mm-dd", class: "form-control" %>
+        <% else %>
+            <%= f.text_field :discount_end_date.strftime("%Y-%m-%d"), class: "form-control" %>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :cash_account, "Cash Account" %>
+        <%= f.select :cash_account, options_for_select([['yes', 1], ['no', 0]],0), class: "form-control" %>
+      </div>
 
       <%= submit_tag "Submit", class: "btn btn-primary" %>
 

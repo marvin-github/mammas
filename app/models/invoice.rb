@@ -6,7 +6,7 @@ class Invoice < ApplicationRecord
   validates :merchant, presence: {message: "Must select merchant"}
   validates :extended_cost, numericality: { message: "%{value} seems wrong" }, allow_nil: true
   validates :price, numericality: { message: "%{value} seems wrong" }, allow_nil: true
-  validates :quantity, numericality: { message: "%{value} seems wrong" }, allow_nil: true
+
 
   def self.to_csv
     attributes = %w{id start_date merchant_name price extended_cost extra_cases description upc quantity user_name}
