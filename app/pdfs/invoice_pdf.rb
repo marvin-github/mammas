@@ -18,25 +18,48 @@ class InvoicePdf < Prawn::Document
     move_down 30
     text "Invoice Number:            "  + invoice.id.to_s
     text "Customer Account No:  " + invoice.merchant.store_number
-    text "Billing Address:              " + invoice.merchant.address1
     text "Name:                           " + invoice.merchant.merchant_name
-    text "Address:                       " + invoice.merchant.address1
+    text "Billing Address:                       " + invoice.merchant.address1
     text "Phone:                          " + invoice.merchant.phone
     text "Date:                             " + invoice.start_date.strftime("%m-%d-%Y")
-    text '_' * 80
+    move_down 40
+    text 'Detail', :align => :center, :style => :bold
     move_down 30
+    cash = 0.0
+    credit = 0.0
     total = 0.0
+
+    #text 'UPC' + '  |  ' +   'Description' + '  |  '  + 'Quantity' + '  |  ' + 'Cost', :style => :bold
+    text_box "UPC",      :at => [0, y - 40]
+    text_box "Description",   :at => [100, y - 40]
+    text_box "Quantity",   :at => [275, y - 40]
+    text_box "Cost",   :at => [350, y - 40]
+    move_down 25
+
     invoice.invoice_items.each do |i|
-      text i.item.upc + '  |  ' +   i.item.description  + '  |  '  +  '  |  ' + i.item.unit_cost.to_s
+      #text i.item.upc + '  |  ' +   i.item.description  + '  |  '  + i.quantity.to_s + '  |  ' + sprintf('%.2f',i.item.unit_cost).to_s
+      text_box i.item.upc,      :at => [0, y - 40]
+      text_box i.item.description,   :at => [100, y - 40]
+      text_box i.quantity.to_s,   :at => [275, y - 40]
+      text_box "$"+ sprintf('%.2f',i.item.unit_cost).to_s,   :at => [350, y - 40]
+      move_down 20
+
       total += i.item.unit_cost * i.quantity
+      if i.quantity < 0
+        credit += i.item.unit_cost * i.quantity
+      else
+        cash += i.item.unit_cost * i.quantity
+      end
     end
     move_down 30
 
-    text "Grand Total  " + total.to_s
-
+    text "Cash Total    " + "$" + sprintf('%.2f',cash).to_s
+    text "Credit Total  " + "$" + sprintf('%.2f',credit).to_s
+    text "Grand Total  " + "$" + sprintf('%.2f',total).to_s
     move_down 30
 
     text "Received By _________________________________________________________"
+    stroke_axis
 
 
   end
