@@ -43,10 +43,11 @@ class InvoiceController < ApplicationController
         cart.item = item
         unless params['quantity' + i.to_s].blank?
           cart.quantity = params['quantity' + i.to_s]
-          if @invoice.merchant.discount > 0 and !@invoice.merchant.discount_start_date.nil? and !@invoice.merchant.discount_end_date.nil?
+          if @invoice.merchant.discount == 'yes' and !@invoice.merchant.discount_start_date.nil? and !@invoice.merchant.discount_end_date.nil?
             range = @invoice.merchant.discount_start_date.strftime("%Y-%m-%d")..@invoice.merchant.discount_end_date.strftime("%Y-%m-%d")
             if range.include?(Time.now.strftime("%Y-%m-%d"))
-              cart.cost = item.unit_cost * cart.quantity - (cart.quantity * @invoice.merchant.discount)
+              puts item.discount_amount
+              cart.cost = item.unit_cost * cart.quantity - (item.discount_amount)
             else
               cart.cost = item.unit_cost * cart.quantity
             end
@@ -64,7 +65,7 @@ class InvoiceController < ApplicationController
   end
 
   def update
-
+# 'to do: apply discount when updated not sure if it works'
     @invoice = Invoice.find(params[:id])
 
 

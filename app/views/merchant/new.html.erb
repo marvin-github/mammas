@@ -1,6 +1,6 @@
 <div class="container">
 <h1>Create Merchant</h1>
-<%= form_for :merchant,  url: merchant_index_path do |f| %>
+<%= form_for :merchant, url: merchant_index_path do |f| %>
 
     <% if @merchant.errors.any? %>
         <div id="error_explanation">
@@ -27,11 +27,6 @@
       </div>
 
       <div class="form-group">
-        <%= label_tag :address2, "Address2" %>
-        <%= f.text_field :address2, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
         <%= label_tag :city, "City" %>
         <%= f.text_field :city, class: "form-control" %>
       </div>
@@ -47,18 +42,13 @@
       </div>
 
       <div class="form-group">
-        <%= label_tag :email, "Email" %>
-        <%= f.text_field :email, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
         <%= label_tag :phone, "Phone" %>
         <%= f.text_field :phone, class: "form-control" %>
       </div>
 
       <div class="form-group">
         <%= label_tag :discount, "Discount" %>
-        <%= f.text_field :discount, class: "form-control" %>
+        <%= f.select :discount, options_for_select([['yes', 'yes'], ['no', 'no']],'no'), class: "form-control" %>
       </div>
 
       <div class="form-group">

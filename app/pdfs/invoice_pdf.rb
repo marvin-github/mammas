@@ -4,18 +4,32 @@ class InvoicePdf < Prawn::Document
   def initialize(invoice)
     super(top_margin: 70)
 
+    invoice.invoice_items.each do |i|
+      if  i.item.upc.include? "743010"
+        text "La Mexicana Tortilla Factory", :align => :center
+        text "Wholesale Division", :align => :center
+        text "Billing Remittance:", :align => :center
 
-    text "Mi Mama's Tortillas, LLC", :align => :center
-    text "Manufactures of Mi Mama's BAAA and", :align => :center
-    text "other fine Mexican Food Products", :align => :center
-    text "Billing Remittance:", :align => :center
+        text "111 E. 4 Street", :align => :center
+        text "Grand Island, NE 68801", :align => :center
+        text "Phone 308-390-0180", :align => :center
+        text "_" * 80
+        move_down 30
+        break
+      else
+        text "Mi Mama's Tortillas, LLC", :align => :center
+        text "Manufactures of Mi Mama's Baja Wraps", :align => :center
+        text "Billing Remittance:", :align => :center
 
-    text "828 S. 17th Street", :align => :center
-    text "Omaha, NE 68108", :align => :center
-    text "Orders: Phone(402) 345-2099 Fax (402) 345-1059", :align => :center
-    text "Billing Questions Phone (402) 345-2099", :align => :center
-    text "_" * 80
-    move_down 30
+        text "828 S. 17th Street", :align => :center
+        text "Omaha, NE 68108", :align => :center
+        text "Orders: Phone(402) 345-2099 Fax (402) 345-1059", :align => :center
+        text "Billing Questions Phone (402) 345-2099", :align => :center
+        text "_" * 80
+        move_down 30
+        break
+      end
+    end
     text "Invoice Number:            "  + invoice.id.to_s
     text "Customer Account No:  " + invoice.merchant.store_number
     text "Name:                           " + invoice.merchant.merchant_name

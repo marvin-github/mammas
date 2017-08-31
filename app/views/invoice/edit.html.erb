@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Edit Invoice</h1>
-  <%= form_for :invoice,  url: invoice_path, method: :patch do |f| %>
+  <%= form_for :invoice,  html: {id: 'invoice_new'}, url: invoice_path, method: :patch do |f| %>
 
       <% if @invoice.errors.any? %>
           <div id="error_explanation">
@@ -47,7 +47,7 @@
               <% else %>
                  <tr>
                     <td><%= check_box_tag 'selections[]', i.id, false %></td>
-                    <td><%= label_tag :item, i.description %></td>
+                    <td><%= label_tag :item, i.upc %></td>
                     <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
                  </tr>
               <% end %>
