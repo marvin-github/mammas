@@ -11,7 +11,7 @@
     <table class="table">
       <thead>
       <tr>
-        <th>Item</th>
+        <th>Upc</th>
         <th>Quantity</th>
         <th>Cost</th>
       </tr>
@@ -21,7 +21,7 @@
     <% total = 0.0%>
       <% @invoice.invoice_items.each do |ii|%>
         <tr>
-          <td><%= ii.item.description %></td>
+          <td><%= ii.item.upc %></td>
           <td><%= ii.quantity %></td>
           <td><%= ii.cost %></td>
           <td><% total += ii.cost %></td>
