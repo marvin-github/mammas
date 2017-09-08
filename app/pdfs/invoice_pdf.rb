@@ -16,9 +16,10 @@ class InvoicePdf < Prawn::Document
         text "_" * 80
         move_down 30
         break
-      else
+      end
+      if i.item.upc[0] == '3'
         text "Mi Mama's Tortillas, LLC", :align => :center
-        text "Manufactures of Mi Mama's Baja Wraps", :align => :center
+        text "Manufactures of Mi Mama's Tortillas and Baja Wraps", :align => :center
         text "Billing Remittance:", :align => :center
 
         text "828 S. 17th Street", :align => :center
@@ -29,13 +30,41 @@ class InvoicePdf < Prawn::Document
         move_down 30
         break
       end
+      if i.item.upc[0] == '6'
+        text "Mimick Distributing Incorporated", :align => :center
+
+        text "4001 N 211 Street", :align => :center
+        text "Elkhorn, NE 68022", :align => :center
+        text "(402) 871-7831", :align => :center
+        text "mimickdistributing@hotmail.com", :align => :center
+        text "_" * 80
+        move_down 30
+        break
+      end
     end
-    text "Invoice Number:            "  + invoice.id.to_s
-    text "Customer Account No:  " + invoice.merchant.store_number
-    text "Name:                           " + invoice.merchant.merchant_name
-    text "Billing Address:                       " + invoice.merchant.address1
-    text "Phone:                          " + invoice.merchant.phone
-    text "Date:                             " + invoice.start_date.strftime("%m-%d-%Y")
+    text_box "Invoice Number:", :at => [0, y - 40]
+    text_box  invoice.id.to_s, :at => [130, y - 40]
+    move_down 15
+
+    text_box "Customer Account No:", :at => [0, y - 40]
+    text_box  invoice.merchant.store_number,:at => [130, y - 40]
+    move_down 15
+
+    text_box "Name:", :at => [0, y - 40]
+    text_box invoice.merchant.merchant_name,:at => [130, y - 40]
+    move_down 15
+
+    text_box "Billing Address:",:at => [0, y - 40]
+    text_box invoice.merchant.address1, :at => [130, y - 40]
+    move_down 15
+
+    text_box "Phone:",:at => [0, y - 40]
+    text_box invoice.merchant.phone, :at => [130, y - 40]
+    move_down 15
+
+    text_box "Date:",:at => [0, y - 40]
+    text_box invoice.start_date.strftime("%m-%d-%Y"), :at => [130, y - 40]
+
     move_down 40
     text 'Detail', :align => :center, :style => :bold
     move_down 30
@@ -48,6 +77,7 @@ class InvoicePdf < Prawn::Document
     text_box "Description",   :at => [100, y - 40]
     text_box "Quantity",   :at => [275, y - 40]
     text_box "Cost",   :at => [350, y - 40]
+    text_box "Extended Price",   :at => [425, y - 40]
     move_down 25
 
     invoice.invoice_items.each do |i|
@@ -56,6 +86,7 @@ class InvoicePdf < Prawn::Document
       text_box i.item.description,   :at => [100, y - 40]
       text_box i.quantity.to_s,   :at => [275, y - 40]
       text_box "$"+ sprintf('%.2f',i.item.unit_cost).to_s,   :at => [350, y - 40]
+      text_box "$"+ sprintf('%.2f',i.item.unit_cost * i.quantity).to_s,   :at => [425, y - 40]
       move_down 20
 
       total += i.item.unit_cost * i.quantity
@@ -67,13 +98,15 @@ class InvoicePdf < Prawn::Document
     end
     move_down 30
 
-    text "Cash Total    " + "$" + sprintf('%.2f',cash).to_s
-    text "Credit Total  " + "$" + sprintf('%.2f',credit).to_s
-    text "Grand Total  " + "$" + sprintf('%.2f',total).to_s
+    draw_text "Cash Total    " + "$" + sprintf('%.2f',cash).to_s,:at => [350, y - 40]
+    move_down 14
+    draw_text "Credit Total   " + "$" + sprintf('%.2f',credit).to_s,:at => [350, y - 40]
+    move_down 14
+    draw_text "Grand Total   " + "$" + sprintf('%.2f',total).to_s,:at => [350, y - 40]
     move_down 30
 
     text "Received By _________________________________________________________"
-    stroke_axis
+    #stroke_axis
 
 
   end

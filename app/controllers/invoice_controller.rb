@@ -28,7 +28,8 @@ class InvoiceController < ApplicationController
       params[:selections].each do |i|
         if params['quantity' + i.to_s].blank? and
           flash[:danger] = 'Must enter quantity if item is selected'
-          redirect_to :controller => 'invoice', :action => 'new' and return
+          #redirect_to :controller => 'invoice', :action => 'new' and return
+          render 'new'
         end
       end
     end
@@ -37,28 +38,36 @@ class InvoiceController < ApplicationController
     if @invoice.save
       flash[:notice] = "Invoice has been created"
       params[:selections].each do |i|
+
         item = Item.find(i)
+        puts 'llllllllll'
+        puts item.inspect
+
         cart = InvoiceItem.new
         cart.invoice = @invoice
         cart.item = item
-        unless params['quantity' + i.to_s].blank?
-          cart.quantity = params['quantity' + i.to_s]
-          if @invoice.merchant.discount == 'yes' and !@invoice.merchant.discount_start_date.nil? and !@invoice.merchant.discount_end_date.nil?
-            range = @invoice.merchant.discount_start_date.strftime("%Y-%m-%d")..@invoice.merchant.discount_end_date.strftime("%Y-%m-%d")
-            if range.include?(Time.now.strftime("%Y-%m-%d"))
-              puts item.discount_amount
-              cart.cost = item.unit_cost * cart.quantity - (item.discount_amount)
-            else
-              cart.cost = item.unit_cost * cart.quantity
-            end
+
+        cart.quantity = params['quantity' + i.to_s]
+        if @invoice.merchant.discount == 'yes' and !@invoice.merchant.discount_start_date.nil? and !@invoice.merchant.discount_end_date.nil?
+          range = @invoice.merchant.discount_start_date.strftime("%Y-%m-%d")..@invoice.merchant.discount_end_date.strftime("%Y-%m-%d")
+          if range.include?(Time.now.strftime("%Y-%m-%d"))
+            puts item.discount_amount
+            cart.cost = item.unit_cost * cart.quantity - (item.discount_amount)
           else
             cart.cost = item.unit_cost * cart.quantity
           end
-          @invoice.invoice_items << cart
-          @invoice.save
+        else
+          cart.cost = item.unit_cost * cart.quantity
         end
+        @invoice.invoice_items << cart
+
+
       end
-      redirect_to @invoice
+      if @invoice.save
+        redirect_to @invoice
+      else
+        render 'new'
+      end
     else
       render 'new'
     end
@@ -91,12 +100,11 @@ class InvoiceController < ApplicationController
         else
           cart = InvoiceItem.new
           cart.invoice = @invoice
-          unless params['quantity' + i.to_s].blank?
-            cart.item = item
-            cart.quantity = params['quantity' + i.to_s]
-            cart.cost = item.unit_cost * cart.quantity
-            @invoice.invoice_items << cart
-          end
+          cart.item = item
+          cart.quantity = params['quantity' + i.to_s]
+          cart.cost = item.unit_cost * cart.quantity
+          @invoice.invoice_items << cart
+
         end
       end
     if @invoice.update(invoice_params)

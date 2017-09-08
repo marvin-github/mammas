@@ -1,5 +1,5 @@
 class InvoiceItem < ApplicationRecord
   belongs_to :invoice
   belongs_to :item
-  validates :quantity, numericality: { message: "%{value} seems wrong" }, allow_nil: true
+  validates :quantity, numericality: { only_integer: true, message: "%{value} seems wrong" }
 end
