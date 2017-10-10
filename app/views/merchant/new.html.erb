@@ -51,15 +51,6 @@
         <%= f.select :discount, options_for_select([['yes', 'yes'], ['no', 'no']],'no'), class: "form-control" %>
       </div>
 
-      <div class="form-group">
-        <%= label_tag :discount_start_date, "Discount Start Date" %>
-        <%= f.text_field :discount_start_date, placeholder: "yyyy-mm-dd", class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= label_tag :discount_end_date, "Discount End Date" %>
-        <%= f.text_field :discount_end_date, placeholder: "yyyy-mm-dd", class: "form-control" %>
-      </div>
 
       <div class="form-group">
         <%= label_tag :account_type, "Account Type" %>

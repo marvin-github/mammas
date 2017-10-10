@@ -252,7 +252,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `invoice_downloads` AS select `i`.`id` AS `invoice_id`,`i`.`start_date` AS `start_date`,`m`.`merchant_name` AS `merchant_name`,sum(`d`.`cost`) AS `total` from ((`invoices` `i` join `invoice_items` `d` on((`d`.`invoice_id` = `i`.`id`))) join `merchants` `m` on((`m`.`id` = `i`.`merchant_id`))) group by `i`.`id`,`i`.`start_date`,`m`.`merchant_name` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
