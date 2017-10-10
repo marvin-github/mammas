@@ -8,7 +8,7 @@ class Invoice < ApplicationRecord
 
 
   def self.to_csv
-    attributes = %w{id start_date merchant_name price extended_cost extra_cases description upc quantity user_name}
+    attributes = %w{id start_date merchant_name cost}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
@@ -17,6 +17,9 @@ class Invoice < ApplicationRecord
         csv << attributes.map{ |attr| invoice.send(attr) }
       end
     end
+  end
+  def cost
+    "#{invoice_items.cost}"
   end
 
   def merchant_name

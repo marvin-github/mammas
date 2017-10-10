@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :merchant
+  resources :item
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'

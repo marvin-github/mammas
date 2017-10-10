@@ -8,6 +8,9 @@ class InvoiceController < ApplicationController
   end
 
   def new
+    puts 'aaaaaa'
+    @account_type =  params[:account_type]
+    puts @account_type
     @invoice = Invoice.new
     @item = Item.all
 
@@ -21,35 +24,43 @@ class InvoiceController < ApplicationController
 
   def create
     @invoice = Invoice.new(invoice_params)
+    account_type = @invoice.merchant.account_type
+
+
     if params[:selections].blank?
       flash[:danger] = 'Must select at least one item'
       redirect_to :controller => 'invoice', :action => 'new' and return
     else
       params[:selections].each do |i|
-        if params['quantity' + i.to_s].blank? and
-          flash[:danger] = 'Must enter quantity if item is selected'
-          #redirect_to :controller => 'invoice', :action => 'new' and return
-          render 'new'
+        #this is a hack it checks the id of the item to determine if it's for cash accounts only
+        if account_type == 0
+          if i.to_i.between?(22,26)
+            flash[:danger] = 'Items that start with a 6 are for cash accounts only'
+            redirect_to :controller => 'invoice', :action => 'new' and return
+
+          end
         end
       end
     end
     @items = Item.find(params[:selections])
     @invoice.user_id = session[:user_id]
+    puts 'mmmmmmmm'
+    puts params[:invoice].fetch(:merchant_id)
+    merchant = Merchant.find(params[:invoice].fetch(:merchant_id))
+    puts 'ppppppp'
+    puts merchant.inspect
+    @invoice.account_type = merchant.account_type
     if @invoice.save
       flash[:notice] = "Invoice has been created"
       params[:selections].each do |i|
-
         item = Item.find(i)
-        puts 'llllllllll'
-        puts item.inspect
-
         cart = InvoiceItem.new
         cart.invoice = @invoice
         cart.item = item
-
         cart.quantity = params['quantity' + i.to_s]
-        if @invoice.merchant.discount == 'yes' and !@invoice.merchant.discount_start_date.nil? and !@invoice.merchant.discount_end_date.nil?
-          range = @invoice.merchant.discount_start_date.strftime("%Y-%m-%d")..@invoice.merchant.discount_end_date.strftime("%Y-%m-%d")
+
+        if @invoice.merchant.discount == 'yes' and !item.discount_start_date.nil? and !item.discount_end_date.nil?
+          range = item.discount_start_date.strftime("%Y-%m-%d")..item.discount_end_date.strftime("%Y-%m-%d")
           if range.include?(Time.now.strftime("%Y-%m-%d"))
             puts item.discount_amount
             cart.cost = item.unit_cost * cart.quantity - (item.discount_amount)
@@ -69,7 +80,7 @@ class InvoiceController < ApplicationController
         render 'new'
       end
     else
-      render 'new'
+       render 'new'
     end
   end
 
@@ -154,13 +165,35 @@ end
     end
   end
 
+
+
   def download
-    @invoice = Invoice.all
-    respond_to do |format|
-      format.html
-      format.csv {send_data @invoice.to_csv, filename: "invoice-#{Date.today}.csv"}
+    invoices = Invoice.where("start_date between ? and ? and account_type = ?", params[:start_date], params[:end_date], params[:account_type])
+    puts invoices
+    invoice_ids = Array.new
+    invoices.each do |i|
+      invoice_ids << i.id
+    end
+    if invoice_ids.empty?
+      flash[:danger] = "No invoices found dates #{ params[:start_date]} and #{ params[:end_date]}"
+      redirect_to invoice_index_path
+    else
+      #@invoice_items = InvoiceItems.joins(:invoice_items, :merchant)#.where(:id => invoice_ids).group(:id).order("sum(invoice_items.cost) DESC")
+      #@invoice_items = Invoice.joins(:invoice_items).where(:id => invoice_ids)
+      #@invoice_items = Invoice.includes(:invoice_items, :merchants).where(:id => invoice_ids)#.group(:id, :start_date, 'merchants.merchant_name').order("sum(invoice_items.cost)")
+      #@invoice_items = InvoiceItem.where(:invoice_id => invoice_ids).group(:Invoice_id)#.order("sum(invoice_items.cost) DESC")
+      @invoice_items = InvoiceDownload.where(:invoice_id => invoice_ids)
+
+      puts 'ddddddddd'
+      puts @invoice_items.inspect
+      #puts @invoice_summary.inspect
+      respond_to do |format|
+        format.html
+        format.csv {send_data @invoice_items.to_csv, filename: "invoice-#{Date.today}.csv"}
+      end
     end
   end
+
 
   def email_invoice
     @invoice = Invoice.find(params[:id])

@@ -14,7 +14,8 @@
   <% if current_user %>
       Signed in as <%= current_user.name %> | <%= link_to "Logout", '/logout' %> | <%= link_to "Menu", menu_index_path %>
   <% else %>
-      <%= link_to 'Login', '/login' %> | <%= link_to "Signup", '/signup' %>
+      <!-- <%= link_to 'Login', '/login' %> | <%= link_to "Signup", '/signup' %> -->
+      <%= link_to 'Login', '/login' %>
   <% end %>
 
   <div class="container">

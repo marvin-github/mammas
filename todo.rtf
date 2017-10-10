@@ -1,6 +1,8 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 ArialMT;}
-{\colortbl;\red255\green255\blue255;\red49\green49\blue49;\red255\green0\blue0;}
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Bold;\f2\fnil\fcharset0 Menlo-BoldItalic;
+\f3\fnil\fcharset0 Menlo-Regular;\f4\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red238\green226\blue221;\red0\green0\blue254;\red82\green0\blue103;
+\red0\green0\blue109;\red235\green235\blue235;\red49\green49\blue49;\red255\green0\blue0;}
 {\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid1\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
 {\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
 \margl1440\margr1440\vieww15720\viewh8400\viewkind0
@@ -8,6 +10,33 @@
 
 \f0\fs24 \cf0 mammas todo\
 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\b \cf0 \cb2 new_invoice_path\cf3 (\cf4 :cash_account 
+\f2\i \cf3 => 
+\f1\i0 \{ \cf4 :ca 
+\f2\i \cf3 => 
+\f1\i0 1 \}) \cf5 \cb6 %>
+\f3\b0 \cf0 </
+\f1\b \cf5 li
+\f3\b0 \cf0 >\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f2\i\b \cf4 \cb2 Merchant
+\f1\i0 \cf3 \cb2 .\cf0 all\cf3 .\cf0 collect \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b0 \cf0 \cb1 \
+\
+20171005\
+cash accounts can see every item\
+non cash accounts can only see the items that start <> 6\
+download needs to summarize invoice not line items\
+\
+\
+\
+\
+ \
 \
 20170907\
 case 1. remove all items from cart and update. Should i delete the invoice record?\
@@ -23,14 +52,14 @@ sort merchant names\
 \
 \pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
 \ls1\ilvl0
-\f1 \cf2 {\listtext	1	}\cf3 \expnd0\expndtw0\kerning0
-completed\cf2  - Use upc number instead of description for display \
+\f4 \cf7 {\listtext	1	}\cf8 \expnd0\expndtw0\kerning0
+completed\cf7  - Use upc number instead of description for display \
 \ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	2	}\expnd0\expndtw0\kerning0
 Cash accounts need different invoice heading \'93larry mimick\'85?\'94\
 \ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	3	}\expnd0\expndtw0\kerning0
 Wish list , use static invoice numbers for cash accounts\
-\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	4	}\cf3 \expnd0\expndtw0\kerning0
-needs testing\cf2  - Discount needs to be at the item level and merchant level\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	4	}\cf8 \expnd0\expndtw0\kerning0
+needs testing\cf7  - Discount needs to be at the item level and merchant level\
 \ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	5	}\expnd0\expndtw0\kerning0
 Admin user everybody else gets invoice create access\
 \ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	6	}\expnd0\expndtw0\kerning0
@@ -40,31 +69,31 @@ Limit viewing access by location account viewer can only see his accounts\
 {\listtext	9	}\expnd0\expndtw0\kerning0
 \
 \pard\tx720\pardeftab720\partightenfactor0
-\cf2 \'a0\
+\cf7 \'a0\
 \'a0\
 *product is sold by the case for restaurants not by the unit\
 \pard\pardeftab720\partightenfactor0
-\cf2 *no discounts for cash accounts, ie. Resturantrs\
+\cf7 *no discounts for cash accounts, ie. Resturantrs\
 * error when no merchant is entered in create invoice\
 *Fix error on create merchant\
 \pard\tx720\pardeftab720\partightenfactor0
-\cf2 \
+\cf7 \
 \pard\pardeftab720\partightenfactor0
 \cf0 \
 \pard\pardeftab720\partightenfactor0
-\cf2 Change Mi Mama's Tortilla header to read:\'a0\cf0 \
-\cf2 Mi Mama's Tortilla, LLC\cf0 \
-\cf2 Manufactures of Mi Mama's tortillas and Baja Wraps\cf0 \
-\cf2 LEAVE OUT>(delete) other fine mexican food\'a0products\cf0 \
-\cf2 SECONDLY PLEASE:\cf0 \
-\cf2 all tortilla that UPC# starts with\'a0743010 (La Mexicana products) needs to be under that manufacturers heading\'a0\cf0 \
-\cf2 NOT>>> Mi Mama's AND their heading is:\'a0\cf0 \
-\cf2 La Mexicana Tortilla Factory\cf0 \
-\cf2 Wholesale Division\cf0 \
-\cf2 111 E. 4 Street\cf0 \
-\cf2 Grand Island, NE. 68801\cf0 \
-\cf2 Phone 308-390-0180\cf0 \
-\cf2 \
+\cf7 Change Mi Mama's Tortilla header to read:\'a0\cf0 \
+\cf7 Mi Mama's Tortilla, LLC\cf0 \
+\cf7 Manufactures of Mi Mama's tortillas and Baja Wraps\cf0 \
+\cf7 LEAVE OUT>(delete) other fine mexican food\'a0products\cf0 \
+\cf7 SECONDLY PLEASE:\cf0 \
+\cf7 all tortilla that UPC# starts with\'a0743010 (La Mexicana products) needs to be under that manufacturers heading\'a0\cf0 \
+\cf7 NOT>>> Mi Mama's AND their heading is:\'a0\cf0 \
+\cf7 La Mexicana Tortilla Factory\cf0 \
+\cf7 Wholesale Division\cf0 \
+\cf7 111 E. 4 Street\cf0 \
+\cf7 Grand Island, NE. 68801\cf0 \
+\cf7 Phone 308-390-0180\cf0 \
+\cf7 \
 \
 \
 the export file needs these columns\
@@ -79,30 +108,30 @@ the export file needs these columns\
 \clvertalb \clshdrawnil \clwWidth2413\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt20 \clpadl20 \clpadr20 \gaph\cellx8640
 \pard\intbl\itap1\pardeftab720\qc\partightenfactor0
 
-\b\fs32 \cf2 \ul \ulc2 ACCOUNT
+\b\fs32 \cf7 \ul \ulc7 ACCOUNT
 \b0\fs24 \ulnone \cell 
 \pard\intbl\itap1\pardeftab720\qc\partightenfactor0
 
-\b\fs32 \cf2 \ul STORE #
+\b\fs32 \cf7 \ul STORE #
 \b0\fs24 \ulnone \cell 
 \pard\intbl\itap1\pardeftab720\qc\partightenfactor0
 
-\b\fs32 \cf2 \ul CREDIT
+\b\fs32 \cf7 \ul CREDIT
 \b0\fs24 \ulnone \cell 
 \pard\intbl\itap1\pardeftab720\qc\partightenfactor0
 
-\b\fs32 \cf2 \ul \'a0CHARGE
+\b\fs32 \cf7 \ul \'a0CHARGE
 \b0\fs24 \ulnone \cell 
 \pard\intbl\itap1\pardeftab720\qc\partightenfactor0
 
-\b\fs32 \cf2 \ul INV #
+\b\fs32 \cf7 \ul INV #
 \b0\fs24 \ulnone \cell 
 \pard\intbl\itap1\pardeftab720\qc\partightenfactor0
 
-\b\fs32 \cf2 \ul DATE
+\b\fs32 \cf7 \ul DATE
 \b0\fs24 \ulnone \cell 
 \pard\intbl\itap1\pardeftab720\qc\partightenfactor0
 
-\b\fs32 \cf2 \ul BILLS
+\b\fs32 \cf7 \ul BILLS
 \b0\fs24 \ulnone \cell \lastrow\row
 }

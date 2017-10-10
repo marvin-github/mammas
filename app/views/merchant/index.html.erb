@@ -1,18 +1,19 @@
 <div class="container">
-  <h1>List Merchants</h1>
+  <h1>Merchants</h1>
 
   <div class="table-responsive">
     <table class="table table-striped">
       <thead>
       <tr>
         <th>Merchant</th>
+        <th>Discount</th>
       </tr>
       </thead>
       <tbody>
       <% @merchant.each do |m| %>
           <tr>
-            <td><%= m.merchant_name %></td>
-            <td><%= m.address1 %></td>
+            <td><%= m.merchant_name + ' ' + m.store_number %></td>
+            <td><%= m.discount %></td>
             <td><%= link_to 'Edit', edit_merchant_path(m), :class => "btn btn-warning"  %></td>
           </tr>
 

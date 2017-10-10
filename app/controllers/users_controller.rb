@@ -10,6 +10,7 @@ class UsersController < ApplicationController
       puts user.id
       redirect_to menu_index_path
     else
+      flash[:danger] = 'User name already exist. Choose another one.'
       redirect_to '/signup'
     end
   end

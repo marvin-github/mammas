@@ -18,7 +18,15 @@
 
       <div class="form-group">
         <%= label_tag :merchant, "Merchant" %>
-        <%= f.select :merchant_id, Merchant.all.collect {|m| [m.merchant_name + '-' + m.store_number, m.id]}, include_blank: true, class: "form-control" %>
+        <% if @account_type == '0' %>
+          <%= f.select :merchant_id, Merchant.where('account_type = 0').collect {|m| [m.merchant_name + '-' + m.store_number, m.id]}, include_blank: true, class: "form-control" %>
+        <% end %>
+        <% if @account_type == '1' %>
+          <%= f.select :merchant_id, Merchant.where('account_type = 1').collect {|m| [m.merchant_name + '-' + m.store_number, m.id]}, include_blank: true, class: "form-control" %>
+        <% end %>
+        <% if @account_type == '7' %>
+            <%= f.select :merchant_id, Merchant.where('account_type = 0').collect {|m| [m.merchant_name + '-' + m.store_number, m.id]}, include_blank: true, class: "form-control" %>
+        <% end %>
       </div>
 
       <div class="form-group">
@@ -38,18 +46,33 @@
         <table class="table">
 
           <% @item.each do |i| %>
-            <tr>
-              <td><%= check_box_tag 'selections[]', i.id, false %></td>
-              <td><%= label_tag :item, i.upc %></td>
-              <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
-
-            </tr>
+            <% if @account_type == '0' and i.upc[0] == '3' %>
+              <tr>
+                <td><%= check_box_tag 'selections[]', i.id, false %></td>
+                <td><%= label_tag :item, i.upc %></td>
+                <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
+              </tr>
+            <% end %>
+            <% if @account_type == '1' %>
+              <tr>
+                <td><%= check_box_tag 'selections[]', i.id, false %></td>
+                <td><%= label_tag :item, i.upc %></td>
+                <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
+              </tr>
+            <% end %>
+            <% if @account_type == '7' and i.upc[0] == '7' %>
+              <tr>
+                <td><%= check_box_tag 'selections[]', i.id, false %></td>
+                <td><%= label_tag :item, i.upc %></td>
+                <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
+              </tr>
+            <% end %>
           <% end %>
         </table>
 
       </div>
       <%= submit_tag "Submit", class: "btn btn-primary" %>
-<br>
+<br><br>
 <% end %>
 
 </div>

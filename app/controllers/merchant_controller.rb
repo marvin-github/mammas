@@ -46,7 +46,7 @@ class MerchantController < ApplicationController
   private
   def merchant_params
     params.require(:merchant).permit(:merchant_name, :address1, :address2, :city, :state, :zip, :email, :phone,
-    :discount, :discount_start_date, :discount_end_date, :cash_account)
+    :discount, :discount_start_date, :discount_end_date, :account_type)
 
   end
 end

@@ -1,7 +1,31 @@
 <div class="container">
-  <h1>Invoices</h1>
+  <h1>Download Invoices</h1>
+  <%= form_tag invoice_download_path(format: "csv"), method: 'get' do %>
+      <div  class="table-responsive">
+        <table class="table">
+          <tr>
+            
+            <td><b>Start Date:</b><%= text_field_tag :start_date, nil,  class: "form-control", size: "1", value: "#{Time.now.strftime("%Y-%m-%d")}" %></td>
+          </tr>
+          <tr>
+            <td><b>End Date:</b>  &ensp;<%= text_field_tag :end_date, nil,  class: "form-control", size: "1", value: "#{Time.now.strftime("%Y-%m-%d")}" %></td>
+          </tr>
+          <tr>
+            <td><b>Account Type:</b>  &ensp;<%= select_tag "account_type", options_for_select([["Mi Mama's",0], ['La Mexicana', 7], ['Mimick Distributing', 1]],'Mammas') %></td>
+
+          </tr>
+          <tr>
+            <td><%= submit_tag "Download", class: "btn btn-primary", id: "sub" %></td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+
+  <% end %>
 
   <div  class="table-responsive">
+
+
     <table class="table table-striped">
       <thead>
       <tr>
@@ -24,7 +48,7 @@
       <% end %>
       </tbody>
     </table>
-    <%= link_to 'Download', invoice_download_path(format: "csv"), :class => "btn btn-primary"  %>
+
   </div>
 
 </div>

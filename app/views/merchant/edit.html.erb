@@ -48,34 +48,21 @@
 
       <div class="form-group">
         <%= label_tag :discount, "Discount" %>
-        <%= f.text_field :discount, class: "form-control" %>
+        <%= f.select :discount, options_for_select([['yes', 'yes'], ['no', 'no']],@merchant.discount), class: "form-control" %>
       </div>
 
+      <% type = 'no' %>
+      <% if @merchant.account_type == 1%>
+        <% type = 'yes' %>
+      <% end %>
+      <% puts type %>
       <div class="form-group">
-        <%= label_tag :discount_start_date, "Discount Start Date" %>
-        <% unless :discount_start_date.empty? %>
-          <%= f.text_field :discount_start_date, placeholder: "yyyy-mm-dd", class: "form-control" %>
-        <% else %>
-            <%= f.text_field :discount_start_date.strftime("%Y-%m-%d"), class: "form-control" %>
-        <% end %>
-      </div>
-
-      <div class="form-group">
-        <%= label_tag :discount_end_date, "Discount End Date" %>
-        <% unless :discount_end_date.empty? %>
-            <%= f.text_field :discount_end_date, placeholder: "yyyy-mm-dd", class: "form-control" %>
-        <% else %>
-            <%= f.text_field :discount_end_date.strftime("%Y-%m-%d"), class: "form-control" %>
-        <% end %>
-      </div>
-
-      <div class="form-group">
-        <%= label_tag :cash_account, "Cash Account" %>
-        <%= f.select :cash_account, options_for_select([['yes', 1], ['no', 0]],0), class: "form-control" %>
+        <%= label_tag :account_type, "Account Type" %>
+        <%= f.select :account_type, options_for_select([['Mimick Distributing', 1], ["Mi Mama's", 0]], @merchant.account_type), class: "form-control" %>
       </div>
 
       <%= submit_tag "Submit", class: "btn btn-primary" %>
 
   <% end %>
-
+  <br><br>
 </div>

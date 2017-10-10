@@ -1,0 +1,48 @@
+<div class="container">
+  <h1>Products</h1>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Upc</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @item.each do |i| %>
+          <tr>
+            <td><%= i.upc %></td>
+
+            <% unless i.discount_start_date %>
+              <td><%= i.discount_start_date %></td>
+            <% else %>
+                <td><%= i.discount_start_date.strftime("%Y-%m-%d")  %></td>
+            <% end %>
+
+            <% unless i.discount_end_date %>
+                <td><%= i.discount_end_date %></td>
+            <% else %>
+                <td><%= i.discount_end_date.strftime("%Y-%m-%d")  %></td>
+            <% end %>
+
+            <td><%= i.discount_amount %></td>
+            <td><%= link_to 'Edit', edit_item_path(i), :class => "btn btn-warning"  %></td>
+          </tr>
+
+
+
+
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<br>
+
+
+

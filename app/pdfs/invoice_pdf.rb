@@ -3,7 +3,7 @@ class InvoicePdf < Prawn::Document
 
   def initialize(invoice)
     super(top_margin: 70)
-
+    account_type = invoice.merchant.account_type
     invoice.invoice_items.each do |i|
       if  i.item.upc.include? "743010"
         text "La Mexicana Tortilla Factory", :align => :center
@@ -17,7 +17,7 @@ class InvoicePdf < Prawn::Document
         move_down 30
         break
       end
-      if i.item.upc[0] == '3'
+      if account_type == 0 #items that start with a 3 use this heading
         text "Mi Mama's Tortillas, LLC", :align => :center
         text "Manufactures of Mi Mama's Tortillas and Baja Wraps", :align => :center
         text "Billing Remittance:", :align => :center
@@ -30,7 +30,7 @@ class InvoicePdf < Prawn::Document
         move_down 30
         break
       end
-      if i.item.upc[0] == '6'
+      if account_type == 1
         text "Mimick Distributing Incorporated", :align => :center
 
         text "4001 N 211 Street", :align => :center
@@ -56,6 +56,10 @@ class InvoicePdf < Prawn::Document
 
     text_box "Billing Address:",:at => [0, y - 40]
     text_box invoice.merchant.address1, :at => [130, y - 40]
+    move_down 15
+
+    text_box "City:",:at => [0, y - 40]
+    text_box invoice.merchant.city, :at => [130, y - 40]
     move_down 15
 
     text_box "Phone:",:at => [0, y - 40]
@@ -103,7 +107,7 @@ class InvoicePdf < Prawn::Document
     draw_text "Credit Total   " + "$" + sprintf('%.2f',credit).to_s,:at => [350, y - 40]
     move_down 14
     draw_text "Grand Total   " + "$" + sprintf('%.2f',total).to_s,:at => [350, y - 40]
-    move_down 30
+    move_down 200
 
     text "Received By _________________________________________________________"
     #stroke_axis
