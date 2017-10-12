@@ -46,27 +46,11 @@
         <table class="table">
 
           <% @item.each do |i| %>
-            <% if @account_type == '0' and i.upc[0] == '3' %>
               <tr>
                 <td><%= check_box_tag 'selections[]', i.id, false %></td>
                 <td><%= label_tag :item, i.upc %></td>
                 <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
               </tr>
-            <% end %>
-            <% if @account_type == '1' %>
-              <tr>
-                <td><%= check_box_tag 'selections[]', i.id, false %></td>
-                <td><%= label_tag :item, i.upc %></td>
-                <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
-              </tr>
-            <% end %>
-            <% if @account_type == '7' and i.upc[0] == '7' %>
-              <tr>
-                <td><%= check_box_tag 'selections[]', i.id, false %></td>
-                <td><%= label_tag :item, i.upc %></td>
-                <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
-              </tr>
-            <% end %>
           <% end %>
         </table>
 

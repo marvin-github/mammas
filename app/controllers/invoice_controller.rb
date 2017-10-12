@@ -12,7 +12,16 @@ class InvoiceController < ApplicationController
     @account_type =  params[:account_type]
     puts @account_type
     @invoice = Invoice.new
-    @item = Item.all
+
+    case @account_type
+      when "0"
+        @item = Item.where(mamas_item: true)
+      when "1"
+        @item = Item.where(mimick_item: true)
+      when "7"
+        @item = Item.where(mexicana_item: true)
+    end
+
 
   end
 

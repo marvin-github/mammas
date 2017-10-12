@@ -62,7 +62,20 @@
         <%= f.text_field :discount_end_date, placeholder: "yyyy-mm-dd", class: "form-control" %>
       </div>
 
+      <div class="form-group">
+        <%= label_tag :mimick_item, "Make available for Mimick" %>
+        <%= f.select :mimick_item, options_for_select([['yes', 1], ['no', 0]],'no'), class: "form-control" %>
+      </div>
 
+      <div class="form-group">
+        <%= label_tag :mamas_item, "Make available for Mi Mama's" %>
+        <%= f.select :mamas_item, options_for_select([['yes', 1], ['no', 0]], 'no'), class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :mexicana_item, "Make available for La Mexicana" %>
+        <%= f.select :mexicana_item, options_for_select([['yes', 1], ['no', 0]], 'no'), class: "form-control" %>
+      </div>
 
       <%= submit_tag "Submit", class: "btn btn-primary" %>
 
