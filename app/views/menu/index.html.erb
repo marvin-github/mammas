@@ -5,20 +5,31 @@
 
         <% if @user.admin? %>
           <ul class="nav nav-pills nav-stacked">
+
             <tr><li><%=	 link_to "Mimick Distributing", new_invoice_path(:account_type =>  1 ) %></li></tr>
+            <tr>&nbsp</tr>
             <tr><li><%=	 link_to "Mi Mama's", new_invoice_path(:account_type =>  0 ) %></li></tr>
+            <tr>&nbsp</tr>
             <tr><li><%=	 link_to "La Mexicana", new_invoice_path(:account_type =>  7 ) %></li></tr>
+            <tr>&nbsp</tr>
             <tr><li><%=	 link_to "Download Invoices", invoice_index_path %></li></tr>
-            <tr><li><%=	 link_to "Add Merchant", new_merchant_path %></li></tr>
-            <tr><li><%=	 link_to "Show Merchants", merchant_index_path %></li></tr>
-            <tr><li><%=	 link_to "Add Product", new_item_path %></li></tr>
-            <tr><li><%=	 link_to "Show Products", item_index_path %></li></tr>
+            <tr>&nbsp</tr>
+            <tr><li><%=	 link_to "New Merchant", new_merchant_path %></li></tr>
+            <tr>&nbsp</tr>
+            <tr><li><%=	 link_to "Edit Merchants", merchant_index_path %></li></tr>
+            <tr>&nbsp</tr>
+            <tr><li><%=	 link_to "New Product", new_item_path %></li></tr>
+            <tr>&nbsp</tr>
+            <tr><li><%=	 link_to "Edit Products", item_index_path %></li></tr>
+            <tr>&nbsp</tr>
             <tr><li><%=	 link_to "Add User Accounts", signup_path %></li></tr>
           </ul>
         <% else %>
           <ul class="nav nav-pills nav-stacked">
             <tr><li><%=	 link_to "Mimick Distributing", new_invoice_path(:account_type =>  1 ) %></li></tr>
+            <tr>&nbsp</tr>
             <tr><li><%=	 link_to "Mi Mama's", new_invoice_path(:account_type =>  0 ) %></li></tr>
+            <tr>&nbsp</tr>
             <tr><li><%=	 link_to "La Mexicana", new_invoice_path(:account_type =>  7 ) %></li></tr>
           </ul>
         <% end %>
