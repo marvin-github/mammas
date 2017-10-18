@@ -37,7 +37,7 @@
       <% @invoice.each do |i| %>
           <tr>
             <td><%= i.start_date.strftime("%Y-%m-%d") %></td>
-            <td><%= link_to "#{i.merchant.merchant_name}", invoice_path(i) %></td>
+            <td><%= link_to "#{i.merchant.merchant_name+ ' ' + i.merchant.store_number}", invoice_path(i) %></td>
 
             <!--<td><%= link_to 'Show', invoice_path(i) %></td>-->
             <td><%= link_to 'Edit', edit_invoice_path(i), :class => "btn btn-warning" %></td>

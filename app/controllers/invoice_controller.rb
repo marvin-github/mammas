@@ -184,7 +184,7 @@ class InvoiceController < ApplicationController
 
 
   def download
-    invoices = Invoice.where("start_date between ? and ? and account_type = ?", params[:start_date], params[:end_date], params[:account_type])
+    invoices = Invoice.where("start_date between ? and ? and account_type = ?", params[:start_date], params[:end_date], params[:account_type]).order({ start_date: :desc })
     puts invoices
     invoice_ids = Array.new
     invoices.each do |i|

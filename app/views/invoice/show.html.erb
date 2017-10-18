@@ -1,6 +1,7 @@
 <div class="container">
   <h4><%= @invoice.merchant.merchant_name %></h4>
   <h4>Store #: <%= @invoice.merchant.store_number%></h4>
+  <h4>Invoice #: <%= @invoice.id%> </h4>
   <h4><%= @invoice.merchant.address1 %></h4>
   <h7><%= @invoice.start_date.strftime("Created on %m/%d/%Y") %></h7>
 
