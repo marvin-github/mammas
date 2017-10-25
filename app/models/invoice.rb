@@ -23,7 +23,9 @@ class Invoice < ApplicationRecord
   end
 
   def merchant_name
+
       "#{merchant.merchant_name}"
+
   end
 
   def user_name

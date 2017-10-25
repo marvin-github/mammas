@@ -3,12 +3,12 @@ class InvoiceController < ApplicationController
   before_action :authorize
 
   def index
-    @invoice = Invoice.all
+    @invoice = Invoice.all.order({ start_date: :desc })
 
   end
 
   def new
-    puts 'aaaaaa'
+    puts 'zzz-invoice-controller-new'
     @account_type =  params[:account_type]
     puts @account_type
     @invoice = Invoice.new
@@ -64,6 +64,8 @@ class InvoiceController < ApplicationController
             puts item.discount_amount
             discounted_item_cost =  item.unit_cost - item.discount_amount
             cart.cost = discounted_item_cost * cart.quantity
+            cart.discounted_item = "*"
+            cart
           else
             cart.cost = item.unit_cost * cart.quantity
           end
@@ -184,7 +186,7 @@ class InvoiceController < ApplicationController
 
 
   def download
-    invoices = Invoice.where("start_date between ? and ? and account_type = ?", params[:start_date], params[:end_date], params[:account_type]).order({ start_date: :desc })
+    invoices = Invoice.where("start_date between ? and ? and account_type = ?", params[:start_date], params[:end_date], params[:account_type]).order({ start_date: :asc })
     puts invoices
     invoice_ids = Array.new
     invoices.each do |i|

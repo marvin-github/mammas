@@ -24,7 +24,13 @@
         <tr>
           <td><%= ii.item.upc %></td>
           <td><%= ii.quantity %></td>
-          <td><%= ii.cost %></td>
+          <td>
+            <% if ii.discounted_item == "*"%>
+              *
+              <%= ii.cost %></td>
+            <% else %>
+                <%= ii.cost %></td>
+            <% end %>
           <td><% total += ii.cost %></td>
         </tr>
       <% end %>

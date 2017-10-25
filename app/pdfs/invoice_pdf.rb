@@ -93,16 +93,20 @@ class InvoicePdf < Prawn::Document
       text_box i.item.description,   :at => [65, y - 40], :size => 8
       text_box i.item.package_counts,   :at => [200, y - 40], :size => 8
       text_box i.quantity.to_s,   :at => [300, y - 40], :size => 8
-      text_box "$"+ sprintf('%.2f',i.item.unit_cost).to_s,   :at => [350, y - 40], :size => 8
-      text_box "$"+ sprintf('%.2f',i.item.unit_cost * i.quantity).to_s,   :at => [400, y - 40], :size => 8
-      move_down 10
-
-      total += i.item.unit_cost * i.quantity
-      if i.quantity < 0
-        credit += i.item.unit_cost * i.quantity
+      if i.discounted_item == '*'
+        discounted_item_cost =  i.item.unit_cost - i.item.discount_amount
+        text_box "$"+ sprintf('%.2f',discounted_item_cost.to_s),   :at => [350, y - 40], :size => 8
+        text_box "$"+ sprintf('%.2f',discounted_item_cost * i.quantity).to_s,   :at => [400, y - 40], :size => 8
+        total += discounted_item_cost * i.quantity
+        cash += discounted_item_cost * i.quantity
       else
+        text_box "$"+ sprintf('%.2f',i.item.unit_cost).to_s,   :at => [350, y - 40], :size => 8
+        text_box "$"+ sprintf('%.2f',i.item.unit_cost * i.quantity).to_s,   :at => [400, y - 40], :size => 8
+        total += i.item.unit_cost * i.quantity
         cash += i.item.unit_cost * i.quantity
       end
+      move_down 10
+
     end
     move_down 30
 
