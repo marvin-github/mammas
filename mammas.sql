@@ -69,8 +69,9 @@ CREATE TABLE `invoice_items` (
   `item_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `cost` decimal(11,2) DEFAULT NULL,
+  `discounted_item` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,7 +80,7 @@ CREATE TABLE `invoice_items` (
 
 LOCK TABLES `invoice_items` WRITE;
 /*!40000 ALTER TABLE `invoice_items` DISABLE KEYS */;
-INSERT INTO `invoice_items` VALUES (103,141,3,1,1.50),(104,141,4,1,3.00),(105,142,3,1,1.50),(106,142,4,1,3.00);
+INSERT INTO `invoice_items` VALUES (103,141,3,1,1.30,NULL),(105,142,3,1,1.50,NULL),(106,142,4,1,3.00,NULL),(107,143,3,1,1.30,NULL),(108,144,3,9,13.30,NULL),(109,145,3,9,13.30,NULL),(110,146,3,10,13.00,NULL),(111,147,3,1,1.50,NULL),(112,148,3,1,1.30,NULL),(113,148,4,2,6.00,NULL),(114,148,5,2,2.60,NULL),(115,148,6,2,3.70,NULL),(116,148,7,2,4.20,NULL),(117,148,8,2,4.20,NULL),(118,148,9,2,4.20,NULL),(119,149,3,1,1.50,NULL),(120,150,3,1,1.50,NULL),(121,152,3,1,1.30,'*'),(122,153,3,5,6.50,'*'),(123,153,4,1,3.00,NULL),(124,153,5,1,1.30,NULL),(125,154,3,1,1.30,'*'),(126,155,3,1,1.30,'*'),(127,156,3,2,2.60,'*'),(128,156,4,2,6.00,NULL);
 /*!40000 ALTER TABLE `invoice_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +101,7 @@ CREATE TABLE `invoices` (
   `description` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `account_type` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,7 +110,7 @@ CREATE TABLE `invoices` (
 
 LOCK TABLES `invoices` WRITE;
 /*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
-INSERT INTO `invoices` VALUES (141,'2017-10-08 00:00:00',1,12,'2017-10-08 16:48:43','2017-10-08 16:48:43','','0'),(142,'2017-10-09 00:00:00',2,12,'2017-10-10 00:45:25','2017-10-10 00:45:25','','0');
+INSERT INTO `invoices` VALUES (141,'2017-10-08 00:00:00',1,12,'2017-10-08 16:48:43','2017-10-08 16:48:43','','0'),(142,'2017-10-09 00:00:00',2,12,'2017-10-10 00:45:25','2017-10-10 00:45:25','','0'),(143,'2017-10-13 00:00:00',1,12,'2017-10-13 23:09:25','2017-10-13 23:09:25','','0'),(144,'2017-10-14 00:00:00',1,12,'2017-10-14 15:00:54','2017-10-14 15:00:54','','0'),(145,'2017-10-14 00:00:00',1,12,'2017-10-14 15:07:34','2017-10-14 15:07:34','','0'),(146,'2017-10-14 00:00:00',1,12,'2017-10-14 15:12:13','2017-10-14 15:12:13','','0'),(147,'2017-10-14 00:00:00',98,12,'2017-10-14 22:28:29','2017-10-14 22:28:29','','1'),(148,'2017-10-16 00:00:00',1,12,'2017-10-17 01:31:32','2017-10-17 01:31:32','','0'),(149,'2017-10-17 00:00:00',46,12,'2017-10-18 00:56:28','2017-10-18 00:56:28','','0'),(150,'2017-10-22 00:00:00',90,12,'2017-10-22 20:57:46','2017-10-22 20:57:46','','1'),(151,'2017-10-24 00:00:00',1,12,'2017-10-25 01:31:22','2017-10-25 01:31:22','','0'),(152,'2017-10-24 00:00:00',1,12,'2017-10-25 01:38:00','2017-10-25 01:38:00','','0'),(153,'2017-10-24 00:00:00',1,12,'2017-10-25 01:38:51','2017-10-25 01:38:51','','0'),(154,'2017-10-24 00:00:00',1,12,'2017-10-25 01:55:28','2017-10-25 01:55:28','','0'),(155,'2017-10-24 00:00:00',1,12,'2017-10-25 02:11:03','2017-10-25 02:11:03','','0'),(156,'2017-10-24 00:00:00',1,12,'2017-10-25 02:29:31','2017-10-25 02:29:31','','0');
 /*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +145,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (3,'Corn Tortillas 6 in/ 26 oz.','35392-12234','32 ct./ 9 pkg.cs.',1.5,13.5,1.99,1,'2017-01-01 00:00:00','2017-12-31 00:00:00',1,1,0),(4,'Corn Tortillas 6 in/ 86 oz.','35392-12242','80 ct./ 6 pkg.cs.',3,18,3.99,0,NULL,NULL,1,1,0),(5,'Flour Tortillas 6 in/ 12 oz.','35392-14122','10 ct./ 12 pkg.cs.',1.3,15.6,1.79,0,NULL,NULL,1,1,0),(6,'Flour Tortillas 8 in/ 20 oz.','35392-24121','10 ct./ 12 pkg.cs.',1.85,22.2,2.49,0,NULL,NULL,1,1,0),(7,'Flour Tortillas 10 in/ 23 oz.','35392-41214','10 ct./ 12 pkg.cs.',2.1,25.2,2.79,0,NULL,NULL,1,1,0),(8,'W. Wheat Tortillas 8 in/ 20 oz. ','35392-34123','10 ct./ 12 pkg.cs.',2.1,25.2,2.79,0,NULL,NULL,1,1,0),(9,'Low Carb Wheat 7 in/ 9 oz.','35392-34220','8 ct./ 12 pkg.cs.',2.1,25.2,2.79,0,NULL,NULL,1,1,0),(10,'L.F.Flour Tortillas 10 in/ 18 oz.','35392-40910','8 ct./ 12 pkg.cs.',1.9,22.8,2.59,0,NULL,NULL,1,1,0),(11,'L.F.Flour Tortillas 8 in/ 20 oz.','78704-40915','10 ct./ 12 pkg.cs.',1.7,20.4,2.39,0,NULL,NULL,1,1,0),(12,'L.F.Flour Tortillas 7 in/ 16 oz.','78704-40916','10 ct./ 12 pkg.cs.',1.45,17.4,1.99,0,NULL,NULL,1,1,0),(13,'Sun Dried Tomato Wrap','73219-00703','14 oz./ 12 pkg.cs.',2.48,29.76,3.29,0,NULL,NULL,1,0,1),(14,'Spinach Pesto Wrap','73219-00704','14 oz./ 12 pkg.cs.',2.48,29.76,3.29,0,NULL,NULL,1,0,1),(15,'Roasted Red Pepper Wrap','73219-00705','14 oz./ 12 pkg.cs.',2.48,29.76,3.29,0,NULL,NULL,1,0,1),(16,'Corn Tortillas 6 in/ 32 oz.','743010-12501','34 ct./ 18 pkg.cs.',1.45,26.1,1.89,0,NULL,NULL,1,0,1),(17,'Corn Tortillas 6 in/ 90 oz.','743010-12502','90 ct./ 6 pkg.cs.',3,18,3.59,0,NULL,NULL,1,0,1),(18,'Corn Tortillas 4 in/ 30 oz.','743010-12506','60 ct./ 20 pkg.cs.',1.85,37,2.55,0,NULL,NULL,1,0,1),(19,'Flour Tortillas 6 in/ 11 oz.','743010-12503','10 ct./ 12 pkgs.',1.05,12.6,1.39,0,NULL,NULL,1,0,1),(20,'Flour Tortillas 8 in/ 16 oz.','743010-12504','10 ct./ 12 pkgs.',1.35,16.2,1.75,0,NULL,NULL,1,0,1),(21,'Flour Tortillas 10 in/ 20 oz.','743010-12505','8 ct./ 12 pkgs.',1.5,18,1.95,0,NULL,NULL,1,0,1),(22,'Corn Tortillas 6 in','6000','80 ct./ 6 pkg.cs.',19,0,0,0,NULL,NULL,1,0,0),(23,'Flour Tortillas 6 in','6100','12 ct./ 30 pkg.cs.',28,0,0,0,NULL,NULL,1,0,0),(24,'Flour Tortillas 8 in','6200','12 ct./ 18 pkg.cs.',25,0,0,0,NULL,NULL,1,0,0),(25,'Flour Tortillas 10 in','6300','12ct./ 16 pkg.cs.',29,0,0,0,NULL,NULL,1,0,0),(26,'Flour Tortilla 13 in','6400','12ct./ 12 pkg.cs.',40,0,0,0,NULL,NULL,1,0,0);
+INSERT INTO `items` VALUES (3,'Corn Tortillas 6 in/ 26 oz.','35392-12234','32 ct./ 9 pkg.cs.',1.5,13.5,1.99,0.2,'2017-01-01 00:00:00','2017-12-31 00:00:00',1,1,0),(4,'Corn Tortillas 6 in/ 86 oz.','35392-12242','80 ct./ 6 pkg.cs.',3,18,3.99,0,NULL,NULL,1,1,0),(5,'Flour Tortillas 6 in/ 12 oz.','35392-14122','10 ct./ 12 pkg.cs.',1.3,15.6,1.79,0,NULL,NULL,1,1,0),(6,'Flour Tortillas 8 in/ 20 oz.','35392-24121','10 ct./ 12 pkg.cs.',1.85,22.2,2.49,0,NULL,NULL,1,1,0),(7,'Flour Tortillas 10 in/ 23 oz.','35392-41214','10 ct./ 12 pkg.cs.',2.1,25.2,2.79,0,NULL,NULL,1,1,0),(8,'W. Wheat Tortillas 8 in/ 20 oz. ','35392-34123','10 ct./ 12 pkg.cs.',2.1,25.2,2.79,0,NULL,NULL,1,1,0),(9,'Low Carb Wheat 7 in/ 9 oz.','35392-34220','8 ct./ 12 pkg.cs.',2.1,25.2,2.79,0,NULL,NULL,1,1,0),(10,'L.F.Flour Tortillas 10 in/ 18 oz.','35392-40910','8 ct./ 12 pkg.cs.',1.9,22.8,2.59,0,NULL,NULL,1,1,0),(11,'L.F.Flour Tortillas 8 in/ 20 oz.','78704-40915','10 ct./ 12 pkg.cs.',1.7,20.4,2.39,0,NULL,NULL,1,1,0),(12,'L.F.Flour Tortillas 7 in/ 16 oz.','78704-40916','10 ct./ 12 pkg.cs.',1.45,17.4,1.99,0,NULL,NULL,1,1,0),(13,'Sun Dried Tomato Wrap','73219-00703','14 oz./ 12 pkg.cs.',2.48,29.76,3.29,0,NULL,NULL,1,0,1),(14,'Spinach Pesto Wrap','73219-00704','14 oz./ 12 pkg.cs.',2.48,29.76,3.29,0,NULL,NULL,1,0,1),(15,'Roasted Red Pepper Wrap','73219-00705','14 oz./ 12 pkg.cs.',2.48,29.76,3.29,0,NULL,NULL,1,0,1),(16,'Corn Tortillas 6 in/ 32 oz.','743010-12501','34 ct./ 18 pkg.cs.',1.45,26.1,1.89,0,NULL,NULL,1,0,1),(17,'Corn Tortillas 6 in/ 90 oz.','743010-12502','90 ct./ 6 pkg.cs.',3,18,3.59,0,NULL,NULL,1,0,1),(18,'Corn Tortillas 4 in/ 30 oz.','743010-12506','60 ct./ 20 pkg.cs.',1.85,37,2.55,0,NULL,NULL,1,0,1),(19,'Flour Tortillas 6 in/ 11 oz.','743010-12503','10 ct./ 12 pkgs.',1.05,12.6,1.39,0,NULL,NULL,1,0,1),(20,'Flour Tortillas 8 in/ 16 oz.','743010-12504','10 ct./ 12 pkgs.',1.35,16.2,1.75,0,NULL,NULL,1,0,1),(21,'Flour Tortillas 10 in/ 20 oz.','743010-12505','8 ct./ 12 pkgs.',1.5,18,1.95,0,NULL,NULL,1,0,1),(22,'Corn Tortillas 6 in','6000','80 ct./ 6 pkg.cs.',19,0,0,0,NULL,NULL,1,0,0),(23,'Flour Tortillas 6 in','6100','12 ct./ 30 pkg.cs.',28,0,0,0,NULL,NULL,1,0,0),(24,'Flour Tortillas 8 in','6200','12 ct./ 18 pkg.cs.',25,0,0,0,NULL,NULL,1,0,0),(25,'Flour Tortillas 10 in','6300','12ct./ 16 pkg.cs.',29,0,0,0,NULL,NULL,1,0,0),(26,'Flour Tortilla 13 in','6400','12ct./ 12 pkg.cs.',40,0,0,0,NULL,NULL,1,0,0);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +256,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `invoice_downloads` AS select `i`.`id` AS `invoice_id`,`i`.`start_date` AS `start_date`,`m`.`merchant_name` AS `merchant_name`,sum(`d`.`cost`) AS `total` from ((`invoices` `i` join `invoice_items` `d` on((`d`.`invoice_id` = `i`.`id`))) join `merchants` `m` on((`m`.`id` = `i`.`merchant_id`))) group by `i`.`id`,`i`.`start_date`,`m`.`merchant_name` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -270,4 +271,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-11 20:59:17
+-- Dump completed on 2017-10-25 13:32:17
