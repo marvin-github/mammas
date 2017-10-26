@@ -95,7 +95,7 @@ class InvoicePdf < Prawn::Document
       text_box i.quantity.to_s,   :at => [300, y - 40], :size => 8
       if i.discounted_item == '*'
         discounted_item_cost =  i.item.unit_cost - i.item.discount_amount
-        text_box "$"+ sprintf('%.2f',discounted_item_cost.to_s),   :at => [350, y - 40], :size => 8
+        text_box "$"+ sprintf('%.2f',discounted_item_cost.to_s) + "*",   :at => [350, y - 40], :size => 8
         text_box "$"+ sprintf('%.2f',discounted_item_cost * i.quantity).to_s,   :at => [400, y - 40], :size => 8
         total += discounted_item_cost * i.quantity
         cash += discounted_item_cost * i.quantity

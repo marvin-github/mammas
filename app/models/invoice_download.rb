@@ -2,7 +2,7 @@ class InvoiceDownload < ApplicationRecord
 
   def self.to_csv
 
-    attributes = %w{ start_date merchant_name invoice_id total}
+    attributes = %w{ merchant_name store_number total start_date invoice_id }
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
@@ -13,6 +13,6 @@ class InvoiceDownload < ApplicationRecord
     end
   end
 
-  
+
 
 end
