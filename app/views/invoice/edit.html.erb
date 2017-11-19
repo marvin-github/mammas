@@ -34,21 +34,26 @@
 
       <div class="table-responsive", class="table table-striped">
         <table class="table">
-
+          <tr>
+            <td><h4>Quantity</h4></td>
+            <td><h4>Item</h4></td>
+            <td></td>
+          </tr>
+          <br><br>
 
       <% @items.each do |i|%>
               <% if @invoiceItems.member?(i.id)%>
                  <tr>
-                    <td><%= check_box_tag 'selections[]', i.id, true %></td>
-                    <td><%= label_tag :item, i.upc %></td>
-                    <td><%= text_field_tag "quantity" + i.id.to_s,  @quantities[i.id], placeholder: "0", size: "3" %></td>
+                   <td><%= number_field_tag "quantity" + i.id.to_s,  @quantities[i.id], placeholder: "0",  class: "box_text", size: "3" %></td>
+                   <td><%= label_tag :item, i.upc %></td>
+                   <td><%= check_box_tag 'selections[]', i.id, true, class: "quantity" + i.id.to_s %></td>
                    <td><%= link_to 'Delete', delete_item_path(:id => @invoiceItems[i.id], :invoice => @invoice), method: :delete, data: {confirm: 'Are you sure?'} %></td>
                  </tr>
               <% else %>
                  <tr>
-                    <td><%= check_box_tag 'selections[]', i.id, false %></td>
-                    <td><%= label_tag :item, i.upc %></td>
-                    <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
+                   <td><%= number_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0",  class: "box_text", size: "3" %></td>
+                   <td><%= label_tag :item, i.upc %></td>
+                   <td><%= check_box_tag 'selections[]', i.id, false, class: "quantity" + i.id.to_s %></td>
                  </tr>
               <% end %>
           <% end %>

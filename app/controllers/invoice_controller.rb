@@ -51,6 +51,27 @@ class InvoiceController < ApplicationController
     @invoice.account_type = merchant.account_type
     if @invoice.save
       flash[:notice] = "Invoice has been created"
+      puts 'zzz-invoice_controller.create'
+      puts params.inspect
+      #use text input instead of checkboxes
+      case account_type
+        when 0
+          item_list = Item.where(mamas_item: true)
+        when 1
+          item_list = Item.where(mimick_item: true)
+        when 7
+          item_list = Item.where(mexicana_item: true)
+      end
+      item_list.each do |i|
+        if params['quantity' + i.id.to_s] == ""
+          puts 'no quantity'
+          puts 'quantity'+ i.id.to_s
+        else
+          puts 'yes quantity'
+          puts 'quantity'+ i.id.to_s
+        end
+      end
+
       params[:selections].each do |i|
         item = Item.find(i)
         cart = InvoiceItem.new
@@ -73,9 +94,8 @@ class InvoiceController < ApplicationController
           cart.cost = item.unit_cost * cart.quantity
         end
         @invoice.invoice_items << cart
-
-
       end
+
       if @invoice.save
         redirect_to @invoice
       else
@@ -161,9 +181,6 @@ class InvoiceController < ApplicationController
   end
 
   def delete_item
-    print 'lllllllllllll'
-    puts params.inspect
-    puts params[:invoice].inspect
     @item = InvoiceItem.find(params[:id])
     @item.destroy
     redirect_to action: "edit", id: params[:invoice]

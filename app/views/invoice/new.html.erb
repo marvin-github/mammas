@@ -42,14 +42,19 @@
         <%= f.text_field :description, class: "form-control" %>
       </div>
 
-      <div class="table-responsive", class="table table-striped">
-        <table class="table">
-
+      <div class="table-responsive">
+        <table class="table table-condensed">
+          <tr>
+            <td><h4>Quantity</h4></td>
+            <td><h4>Item</h4></td>
+            <td></td>
+          </tr>
+          <br><br>
           <% @item.each do |i| %>
               <tr>
-                <td><%= check_box_tag 'selections[]', i.id, false %></td>
+                <td><%= number_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0",  class: "box_text", size: "3" %></td>
                 <td><%= label_tag :item, i.upc %></td>
-                <td><%= text_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0", size: "3" %></td>
+                <td><%= check_box_tag 'selections[]', i.id,  false, class: "quantity" + i.id.to_s %></td>
               </tr>
           <% end %>
         </table>

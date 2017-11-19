@@ -1,6 +1,7 @@
 class InvoiceItem < ApplicationRecord
   belongs_to :invoice
   belongs_to :item
+  validates :quantity, presence: true, numericality: { only_integer: true }
 
   def self.to_csv
     #start_date merchant_name,
