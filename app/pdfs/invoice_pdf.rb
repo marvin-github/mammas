@@ -5,6 +5,8 @@ class InvoicePdf < Prawn::Document
     super(top_margin: 70)
     font_size = 8
     account_type = invoice.merchant.account_type
+    time = Time.now.to_s
+
     invoice.invoice_items.each do |i|
       if  i.item.upc.include? "743010"
         text "La Mexicana Tortilla Factory", :align => :center, :size => 8
@@ -14,6 +16,7 @@ class InvoicePdf < Prawn::Document
         text "111 E. 4 Street", :align => :center, :size => 8
         text "Grand Island, NE 68801", :align => :center, :size => 8
         text "Phone 308-390-0180", :align => :center, :size => 8
+        text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"), :align => :center, :size => 8
         text "_" * 80
         move_down 15
         break
@@ -27,6 +30,7 @@ class InvoicePdf < Prawn::Document
         text "Omaha, NE 68108", :align => :center, :size => 8
         text "Orders: Phone(402) 345-2099 Fax (402) 345-1059", :align => :center, :size => 8
         text "Billing Questions Phone (402) 345-2099", :align => :center, :size => 8
+        text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"), :align => :center, :size => 8
         text "_" * 80
         move_down 15
         break
@@ -38,6 +42,7 @@ class InvoicePdf < Prawn::Document
         text "Elkhorn, NE 68022", :align => :center, :size => 8
         text "(402) 871-7831", :align => :center, :size => 8
         text "mimickdistributing@hotmail.com", :align => :center, :size => 8
+        text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"), :align => :center, :size => 8
         text "_" * 80
         move_down 15
         break
@@ -116,6 +121,7 @@ class InvoicePdf < Prawn::Document
 
 
     text "Received By _______________________________________", :size => 8
+
     #stroke_axis
 
 

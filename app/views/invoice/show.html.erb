@@ -20,10 +20,12 @@
 
       <tbody>
     <% total = 0.0%>
+    <% quantity_total = 0.0%>
       <% @invoice.invoice_items.each do |ii|%>
         <tr>
           <td><%= ii.item.upc %></td>
           <td><%= ii.quantity %></td>
+          <% quantity_total += ii.quantity %>
           <td>
             <% if ii.discounted_item == "*"%>
               *
@@ -36,7 +38,7 @@
       <% end %>
       <tr>
         <td>Grand Total</td>
-        <td></td>
+        <td><%= quantity_total %></td>
         <td><%= total %></td>
       </tr>
 
