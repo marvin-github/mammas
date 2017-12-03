@@ -81,6 +81,7 @@ class InvoicePdf < Prawn::Document
     cash = 0.0
     total = 0.0
     credit = 0.0
+    quantity_total = 0
 
 
     #text 'UPC' + '  |  ' +   'Description' + '  |  '  + 'Quantity' + '  |  ' + 'Cost', :style => :bold
@@ -98,6 +99,7 @@ class InvoicePdf < Prawn::Document
       text_box i.item.description,   :at => [65, y - 40], :size => 8
       text_box i.item.package_counts,   :at => [200, y - 40], :size => 8
       text_box i.quantity.to_s,   :at => [300, y - 40], :size => 8
+      quantity_total += i.quantity
       if i.discounted_item == '*'
         discounted_item_cost =  i.item.unit_cost - i.item.discount_amount
         text_box "$"+ sprintf('%.2f',discounted_item_cost.to_s) + "*",   :at => [350, y - 40], :size => 8
@@ -114,8 +116,9 @@ class InvoicePdf < Prawn::Document
 
     end
     move_down 30
-
-    draw_text "Total",:at => [350, y - 40], :size => 8
+    draw_text "Total",   :at => [200, y - 40], :size => 8
+    draw_text quantity_total.to_s,   :at => [300, y - 40], :size => 8
+    #draw_text "Total",:at => [350, y - 40], :size => 8
     draw_text "$" + sprintf('%.2f',cash).to_s,:at => [400, y - 40], :size => 8
     move_down 30
 

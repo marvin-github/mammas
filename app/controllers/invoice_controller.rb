@@ -191,6 +191,7 @@ class InvoiceController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
+        #pdf = InvoicePdf.new(@invoice)
         pdf = InvoicePdf.new(@invoice)
         send_data pdf.render,
         filename: 'invoice.pdf',
@@ -200,6 +201,19 @@ class InvoiceController < ApplicationController
     end
   end
 
+  def display_small_pdf
+    @invoice = Invoice.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = SmallInvoicePdf.new(@invoice)
+        send_data pdf.render,
+                  filename: 'invoice.pdf',
+                  type: 'application/pdf',
+                  disposition: 'inline'
+      end
+    end
+  end
 
 
   def download

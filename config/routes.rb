@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/invoice/download', to: 'invoice#download'
   resources :invoice
   get '/invoice/display_pdf/:id', to: 'invoice#display_pdf', as: 'print'
+  get '/invoice/display_small_pdf/:id', to: 'invoice#display_small_pdf', as: 'print_small'
   get '/invoice/email_invoice/:id', to: 'invoice#email_invoice', as: 'email'
   delete '/invoice/delete_item/:id', to: 'invoice#delete_item', as: 'delete_item'
 
