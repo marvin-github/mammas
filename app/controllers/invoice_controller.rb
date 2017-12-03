@@ -3,7 +3,9 @@ class InvoiceController < ApplicationController
   before_action :authorize
 
   def index
-    @invoice = Invoice.all.order({ start_date: :desc })
+    last_7_days = Time.now
+    last_7_days - (60 * 60 * 168)
+    @invoice = Invoice.limit(10).order('start_date DESC')
 
   end
 

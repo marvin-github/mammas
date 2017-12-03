@@ -17,7 +17,6 @@ class SmallInvoicePdf < Prawn::Document
         text "Grand Island, NE 68801",  :size => 6
         text "Phone 308-390-0180",  :size => 6
         text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"),  :size => 6
-        text "_" * 80
         move_down 15
         break
       end
@@ -31,7 +30,6 @@ class SmallInvoicePdf < Prawn::Document
         text "Orders: Phone(402) 345-2099 Fax (402) 345-1059",  :size => 6
         text "Billing Questions Phone (402) 345-2099",  :size => 6
         text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"),  :size => 6
-        text "_" * 40
         move_down 15
         break
       end
@@ -43,11 +41,11 @@ class SmallInvoicePdf < Prawn::Document
         text "(402) 871-7831",  :size => 6
         text "mimickdistributing@hotmail.com",  :size => 6
         text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"),  :size => 6
-        text "_" * 25
         move_down 15
         break
       end
     end
+    text "___________________________________________________", :size => 6
     text_box "Invoice Number:", :at => [0, y - 40], :size => 6
     text_box  invoice.id.to_s, :at => [70, y - 40], :size => 6
     move_down 10
