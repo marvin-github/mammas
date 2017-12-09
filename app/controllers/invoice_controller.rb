@@ -10,7 +10,7 @@ class InvoiceController < ApplicationController
   end
 
   def new
-    puts 'zzz-invoice-controller-new'
+
     @account_type =  params[:account_type]
     puts @account_type
     @invoice = Invoice.new
@@ -196,7 +196,7 @@ class InvoiceController < ApplicationController
         #pdf = InvoicePdf.new(@invoice)
         pdf = InvoicePdf.new(@invoice)
         send_data pdf.render,
-        filename: 'invoice.pdf',
+        filename: "#{@invoice.id}-#{@invoice.merchant.merchant_name}-#{@invoice.merchant.store_number}-invoice.pdf",
         type: 'application/pdf',
         disposition: 'inline'
       end
