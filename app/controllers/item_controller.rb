@@ -53,6 +53,9 @@ class ItemController < ApplicationController
     :retail_cost,
     :discount_amount,
     :discount_start_date,
+    :mimick_item,
+    :mexicana_item,
+    :mamas_item,
     :discount_end_date)
 
   end
