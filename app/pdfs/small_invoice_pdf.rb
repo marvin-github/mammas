@@ -9,7 +9,7 @@ class SmallInvoicePdf < Prawn::Document
 
     invoice.invoice_items.each do |i|
       if  i.item.upc.include? "743010"
-        text "La Mexicana Tortilla Factory",  :size => 10
+        text "La Mexicana Tortilla Factory",  :size => 20
         text "Wholesale Division",  :size => 10
         text "Billing Remittance:",  :size => 10
 
@@ -21,7 +21,7 @@ class SmallInvoicePdf < Prawn::Document
         break
       end
       if account_type == 0 #items that start with a 3 use this heading
-        text "Mi Mama's Tortillas, LLC",  :size => 10
+        text "Mi Mama's Tortillas, LLC",  :size => 20
         text "Manufactures of Mi Mama's Tortillas and Baja Wraps",  :size => 10
         text "Billing Remittance:",  :size => 10
 
@@ -34,7 +34,7 @@ class SmallInvoicePdf < Prawn::Document
         break
       end
       if account_type == 1
-        text "Mimick Distributing Incorporated",  :size => 10
+        text "Mimick Distributing Incorporated",  :size => 20
 
         text "4001 N 211 Street",  :size => 10
         text "Elkhorn, NE 68022",  :size => 10
