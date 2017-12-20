@@ -10,69 +10,70 @@ class SmallInvoicePdf < Prawn::Document
     invoice.invoice_items.each do |i|
       if  i.item.upc.include? "743010"
         text "La Mexicana Tortilla Factory",  :size => 20
-        text "Wholesale Division",  :size => 10
-        text "Billing Remittance:",  :size => 10
-
-        text "111 E. 4 Street",  :size => 10
-        text "Grand Island, NE 68801",  :size => 10
-        text "Phone 308-390-0180",  :size => 10
-        text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"),  :size => 10
-        move_down 15
+        text "Wholesale Division",  :size => 14
+        text "Billing Remittance:",  :size => 14
+        text "111 E. 4 Street",  :size => 14
+        text "Grand Island, NE 68801",  :size => 14
+        text "Phone 308-390-0180",  :size => 14
+        text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"),  :size => 14
+        move_down 1
         break
       end
       if account_type == 0 #items that start with a 3 use this heading
         text "Mi Mama's Tortillas, LLC",  :size => 20
-        text "Manufactures of Mi Mama's Tortillas and Baja Wraps",  :size => 10
-        text "Billing Remittance:",  :size => 10
+        text "Manufactures of Mi Mama's Tortillas and Baja Wraps",  :size => 14
+        text "Billing Remittance:",  :size => 14
 
-        text "828 S. 17th Street",  :size => 10
-        text "Omaha, NE 68108",  :size => 10
-        text "Orders: Phone(402) 345-2099 Fax (402) 345-1059",  :size => 10
-        text "Billing Questions Phone (402) 345-2099",  :size => 10
-        text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"),  :size => 10
-        move_down 15
+        text "828 S. 17th Street",  :size => 14
+        text "Omaha, NE 68108",  :size => 14
+        text "Orders: Phone(402) 345-2099 Fax (402) 345-1059",  :size => 14
+        text "Billing Questions Phone (402) 345-2099",  :size => 14
+        text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"),  :size => 14
+        move_down 1
         break
       end
       if account_type == 1
         text "Mimick Distributing Incorporated",  :size => 20
 
-        text "4001 N 211 Street",  :size => 10
-        text "Elkhorn, NE 68022",  :size => 10
-        text "(402) 871-7831",  :size => 10
-        text "mimickdistributing@hotmail.com",  :size => 10
-        text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"),  :size => 10
+        text "4001 N 211 Street",  :size => 14
+        text "Elkhorn, NE 68022",  :size => 14
+        text "(402) 871-7831",  :size => 14
+        text "mimickdistributing@hotmail.com",  :size => 14
+        text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"),  :size => 14
         move_down 1
         break
       end
     end
-    text "___________________________________________________", :size => 10
-    move_down 10
-    text_box "Invoice Number:", :at => [0, y - 40], :size => 10
-    text_box  invoice.id.to_s, :at => [110, y - 40], :size => 10
-    move_down 10
+    text "___________________________________________________", :size => 14
+    move_down 15
+    text_box "Invoice Number:", :at => [0, y - 40], :size => 14
+    text_box  invoice.id.to_s, :at => [140, y - 40], :size => 14
+    move_down 15
 
-    text_box "Customer Account No:", :at => [0, y - 40], :size => 10
-    text_box  invoice.merchant.store_number,:at => [110, y - 40], :size => 10
-    move_down 10
+    text_box "Customer Acct #:", :at => [0, y - 40], :size => 14
+    text_box  invoice.merchant.store_number,:at => [140, y - 40], :size => 14
+    move_down 15
 
-    text_box "Name:", :at => [0, y - 40], :size => 10
-    text_box invoice.merchant.merchant_name,:at => [110, y - 40], :size => 10
-    move_down 10
+    text_box "Name:", :at => [0, y - 40], :size => 14
+    text_box invoice.merchant.merchant_name,:at => [140, y - 40], :size => 14
+    move_down 15
 
-    text_box "Billing Address:",:at => [0, y - 40], :size => 10
-    text_box invoice.merchant.address1, :at => [110, y - 40], :size => 10
-    move_down 10
+    text_box "Billing Address:",:at => [0, y - 40], :size => 14
+    text_box invoice.merchant.address1, :at => [140, y - 40], :size => 14
+    move_down 15
 
-    text_box "City:",:at => [0, y - 40], :size => 10
-    text_box invoice.merchant.city, :at => [110, y - 40], :size => 10
-    move_down 10
+    text_box "City:",:at => [0, y - 40], :size => 14
+    text_box invoice.merchant.city, :at => [140, y - 40], :size => 14
+    move_down 15
 
-    text_box "Phone:",:at => [0, y - 40], :size => 10
-    text_box invoice.merchant.phone, :at => [110, y - 40], :size => 10
-    move_down 10
+    text_box "Phone:",:at => [0, y - 40], :size => 14
+    text_box invoice.merchant.phone, :at => [140, y - 40], :size => 14
+    move_down 15
 
-    text_box "Date:",:at => [0, y - 40], :size => 10
-    text_box invoice.start_date.strftime("%m-%d-%Y"), :at => [110, y - 40], :size => 10
+    text_box "Date:",:at => [0, y - 40], :size => 14
+    text_box invoice.start_date.strftime("%m-%d-%Y"), :at => [140, y - 40], :size => 14
+    move_down 10
+    text "___________________________________________________", :size => 14
 
     move_down 30
     cash = 0.0
@@ -82,30 +83,33 @@ class SmallInvoicePdf < Prawn::Document
 
 
     #text 'UPC' + '  |  ' +   'Description' + '  |  '  + 'Quantity' + '  |  ' + 'Cost', :style => :bold
-    text_box "UPC",      :at => [0, y - 40], :size => 10
-    text_box "Description",   :at => [65, y - 40], :size => 10
-    #text_box "Package Counts",   :at => [200, y - 40], :size => 10
-    text_box "Quantity",   :at => [200, y - 40], :size => 10
-    #text_box "Cost",   :at => [350, y - 40], :size => 10
-    text_box "Cost",   :at => [260, y - 40], :size => 10
+    text_box "UPC",      :at => [0, y - 40], :size => 14, :style => :bold
+    text_box "Description",   :at => [90, y - 40], :size => 14, :style => :bold
+    #text_box "Package Counts",   :at => [200, y - 40], :size => 14, :style => :bold
+    text_box "Qty",   :at => [290, y - 40], :size => 14, :style => :bold
+    #text_box "Cost",   :at => [350, y - 40], :size => 14, :style => :bold
+    text_box "Cost",   :at => [350, y - 40], :size => 14, :style => :bold
+    text_box "Ext Price",   :at => [400, y - 40], :size => 14, :style => :bold
     move_down 25
 
     invoice.invoice_items.each do |i|
       #text i.item.upc + '  |  ' +   i.item.description  + '  |  '  + i.quantity.to_s + '  |  ' + sprintf('%.2f',i.item.unit_cost).to_s
-      text_box i.item.upc,      :at => [0, y - 40], :size => 10
-      text_box i.item.description,   :at => [65, y - 40], :size => 10
-      #text_box i.item.package_counts,   :at => [200, y - 40], :size => 10
-      text_box i.quantity.to_s,   :at => [220, y - 40], :size => 10
+      text_box i.item.upc,      :at => [0, y - 40], :size => 14
+      text_box i.item.description,   :at => [90, y - 40], :size => 14
+      #text_box i.item.package_counts,   :at => [200, y - 40], :size => 14
+      text_box i.quantity.to_s,   :at => [295, y - 40], :size => 14
       quantity_total += i.quantity
       if i.discounted_item == '*'
         discounted_item_cost =  i.item.unit_cost - i.item.discount_amount
-        #text_box "$"+ sprintf('%.2f',discounted_item_cost.to_s) + "*",   :at => [350, y - 40], :size => 10
-        text_box "$"+ sprintf('%.2f',discounted_item_cost * i.quantity).to_s,   :at => [260, y - 40], :size => 10
+        #text_box "$"+ sprintf('%.2f',discounted_item_cost.to_s) + "*",   :at => [350, y - 40], :size => 14
+        text_box "$"+ sprintf('%.2f',discounted_item_cost * i.quantity).to_s,   :at => [350, y - 40], :size => 14
+        text_box "$"+ sprintf('%.2f',discounted_item_cost * i.quantity).to_s,   :at => [400, y - 40], :size => 14
         total += discounted_item_cost * i.quantity
         cash += discounted_item_cost * i.quantity
       else
-        #text_box "$"+ sprintf('%.2f',i.item.unit_cost).to_s,   :at => [350, y - 40], :size => 10
-        text_box "$"+ sprintf('%.2f',i.item.unit_cost * i.quantity).to_s,   :at => [260, y - 40], :size => 10
+        #text_box "$"+ sprintf('%.2f',i.item.unit_cost).to_s,   :at => [350, y - 40], :size => 14
+        text_box "$"+ sprintf('%.2f',i.item.unit_cost * i.quantity).to_s,   :at => [350, y - 40], :size => 14
+        text_box "$"+ sprintf('%.2f',i.item.unit_cost * i.quantity).to_s,   :at => [400, y - 40], :size => 14
         total += i.item.unit_cost * i.quantity
         cash += i.item.unit_cost * i.quantity
       end
@@ -113,14 +117,14 @@ class SmallInvoicePdf < Prawn::Document
 
     end
     move_down 30
-    draw_text "Grand Total",   :at => [0, y - 40], :size => 10
-    draw_text quantity_total.to_s,   :at => [220, y - 40], :size => 10
-    #draw_text "Total",:at => [350, y - 40], :size => 10
-    draw_text "$" + sprintf('%.2f',cash).to_s,:at => [260, y - 40], :size => 10
+    draw_text "Grand Total",   :at => [0, y - 40], :size => 14
+    draw_text quantity_total.to_s,   :at => [295, y - 40], :size => 14
+    #draw_text "Total",:at => [350, y - 40], :size => 14
+    draw_text "$" + sprintf('%.2f',cash).to_s,:at => [350, y - 40], :size => 14
     move_down 100
 
 
-    text "Received By _______________________________________", :size => 10
+    text "Received By _______________________________________", :size => 14
 
     #stroke_axis
 
