@@ -26,7 +26,7 @@ class SmallInvoicePdf < Prawn::Document
 
         text "828 S. 17th Street",  :size => 14
         text "Omaha, NE 68108",  :size => 14
-        text "Orders: Phone(402) 345-2099 Fax (402) 345-1059",  :size => 14
+        text "Orders:  Phone(402) 345-2099 Fax (402) 345-1059",  :size => 14
         text "Billing Questions Phone (402) 345-2099",  :size => 14
         text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"),  :size => 14
         move_down 1
@@ -45,7 +45,7 @@ class SmallInvoicePdf < Prawn::Document
       end
     end
     text "___________________________________________________", :size => 14
-    move_down 15
+    move_down 1
     text_box "Invoice Number:", :at => [0, y - 40], :size => 14
     text_box  invoice.id.to_s, :at => [140, y - 40], :size => 14
     move_down 15
@@ -84,43 +84,47 @@ class SmallInvoicePdf < Prawn::Document
 
     #text 'UPC' + '  |  ' +   'Description' + '  |  '  + 'Quantity' + '  |  ' + 'Cost', :style => :bold
     text_box "UPC",      :at => [0, y - 40], :size => 14, :style => :bold
-    text_box "Description",   :at => [90, y - 40], :size => 14, :style => :bold
+    text_box "Description",   :at => [120, y - 40], :size => 14, :style => :bold
     #text_box "Package Counts",   :at => [200, y - 40], :size => 14, :style => :bold
-    text_box "Qty",   :at => [290, y - 40], :size => 14, :style => :bold
+    text_box "Qty",   :at => [310, y - 40], :size => 14, :style => :bold
     #text_box "Cost",   :at => [350, y - 40], :size => 14, :style => :bold
-    text_box "Cost",   :at => [350, y - 40], :size => 14, :style => :bold
-    text_box "Ext Price",   :at => [400, y - 40], :size => 14, :style => :bold
+    text_box "Ext Price",   :at => [350, y - 40], :size => 14, :style => :bold
+    text_box "Cost",   :at => [425, y - 40], :size => 14, :style => :bold
     move_down 25
 
     invoice.invoice_items.each do |i|
       #text i.item.upc + '  |  ' +   i.item.description  + '  |  '  + i.quantity.to_s + '  |  ' + sprintf('%.2f',i.item.unit_cost).to_s
       text_box i.item.upc,      :at => [0, y - 40], :size => 14
-      text_box i.item.description,   :at => [90, y - 40], :size => 14
+      text_box i.item.description,   :at => [120, y - 40], :size => 14
       #text_box i.item.package_counts,   :at => [200, y - 40], :size => 14
-      text_box i.quantity.to_s,   :at => [295, y - 40], :size => 14
+      text_box i.quantity.to_s,   :at => [315, y - 40], :size => 14
       quantity_total += i.quantity
       if i.discounted_item == '*'
         discounted_item_cost =  i.item.unit_cost - i.item.discount_amount
         #text_box "$"+ sprintf('%.2f',discounted_item_cost.to_s) + "*",   :at => [350, y - 40], :size => 14
-        text_box "$"+ sprintf('%.2f',discounted_item_cost * i.quantity).to_s,   :at => [350, y - 40], :size => 14
-        text_box "$"+ sprintf('%.2f',discounted_item_cost * i.quantity).to_s,   :at => [400, y - 40], :size => 14
+
+        text_box "$"+ sprintf('%.2f',i.item.unit_cost * i.quantity).to_s,   :at => [350, y - 40], :size => 14
+        text_box "$"+ sprintf('%.2f',discounted_item_cost * i.quantity).to_s + "*",   :at => [425, y - 40], :size => 14
         total += discounted_item_cost * i.quantity
         cash += discounted_item_cost * i.quantity
       else
         #text_box "$"+ sprintf('%.2f',i.item.unit_cost).to_s,   :at => [350, y - 40], :size => 14
+
         text_box "$"+ sprintf('%.2f',i.item.unit_cost * i.quantity).to_s,   :at => [350, y - 40], :size => 14
-        text_box "$"+ sprintf('%.2f',i.item.unit_cost * i.quantity).to_s,   :at => [400, y - 40], :size => 14
+        text_box "$"+ sprintf('%.2f',i.item.unit_cost * i.quantity).to_s,   :at => [425, y - 40], :size => 14
         total += i.item.unit_cost * i.quantity
         cash += i.item.unit_cost * i.quantity
       end
-      move_down 10
+      move_down 15
+      text_box i.item.package_counts,   :at => [120, y - 40], :size => 14
+      move_down 20
 
     end
     move_down 30
     draw_text "Grand Total",   :at => [0, y - 40], :size => 14
-    draw_text quantity_total.to_s,   :at => [295, y - 40], :size => 14
+    draw_text quantity_total.to_s,   :at => [315, y - 40], :size => 14
     #draw_text "Total",:at => [350, y - 40], :size => 14
-    draw_text "$" + sprintf('%.2f',cash).to_s,:at => [350, y - 40], :size => 14
+    draw_text "$" + sprintf('%.2f',cash).to_s,:at => [425, y - 40], :size => 14
     move_down 100
 
 
