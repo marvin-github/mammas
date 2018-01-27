@@ -264,9 +264,9 @@ class InvoiceController < ApplicationController
     else
       invoices.each do |i|
         if i.total > 0
-          credit_total =+ i.total
+          credit_total += i.total
         else
-          debit_total =+ i.total
+          debit_total += i.total
         end
       end
 
