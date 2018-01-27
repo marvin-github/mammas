@@ -3,7 +3,7 @@ class MerchantController < ApplicationController
   before_action :authorize
 
   def index
-    @merchant = Merchant.all
+    @merchant = Merchant.all.order(merchant_name: :asc, store_number: :asc)
 
   end
 

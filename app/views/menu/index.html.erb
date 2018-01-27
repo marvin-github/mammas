@@ -5,7 +5,7 @@
     <table class="table">
 
         <% if @user.admin? %>
-          <ul class="nav nav-pills nav-stacked">
+          <!--<ul class="nav nav-pills nav-stacked">-->
 
             <!--<tr><li><%=	 link_to "Mimick Distributing", new_invoice_path(:account_type =>  1 ) %></li></tr>-->
             <tr><%= link_to 'Mimick Distributing', new_invoice_path(:account_type =>  1 ), :class => "btn btn-primary"  %></tr>
@@ -40,15 +40,22 @@
 
             <!--<tr><li><%=	 link_to "Accounts", signup_path %></li></tr>-->
             <tr><%=	 link_to "Admin", signup_path, :class => "btn btn-warning" %></tr>
-          </ul>
+          <!--</ul>-->
         <% else %>
-          <ul class="nav nav-pills nav-stacked">
-            <tr><li><%=	 link_to "Mimick Distributing", new_invoice_path(:account_type =>  1 ) %></li></tr>
-            <tr>&nbsp</tr>
-            <tr><li><%=	 link_to "Mi Mama's", new_invoice_path(:account_type =>  0 ) %></li></tr>
-            <tr>&nbsp</tr>
-            <tr><li><%=	 link_to "La Mexicana", new_invoice_path(:account_type =>  7 ) %></li></tr>
-          </ul>
+          <!--<ul class="nav nav-pills nav-stacked">-->
+
+            <!--<tr><li><%=	 link_to "Mimick Distributing", new_invoice_path(:account_type =>  1 ) %></li></tr>-->
+            <tr><%= link_to 'Mimick Distributing', new_invoice_path(:account_type =>  1 ), :class => "btn btn-primary"  %></tr>
+            <tr><br><br></tr>
+
+            <!--<tr><li><%=	 link_to "Mi Mama's", new_invoice_path(:account_type =>  0 ) %></li></tr>-->
+            <tr><%= link_to "Mi Mama's", new_invoice_path(:account_type =>  0 ), :class => "btn btn-primary"  %></tr>
+            <tr><br><br></tr>
+
+            <!--<tr><li><%=	 link_to "La Mexicana", new_invoice_path(:account_type =>  7 ) %></li></tr>-->
+            <tr><%=	 link_to "La Mexicana", new_invoice_path(:account_type =>  7), :class => "btn btn-primary"  %></tr>
+            <tr><br><br></tr>
+          <!--</ul>-->
         <% end %>
 
     </table>

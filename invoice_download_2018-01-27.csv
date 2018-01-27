@@ -1,0 +1,4 @@
+Invoice_Date,Merchant,Store_Number,Cost,Credit,Invoice_Number
+01/27/2018,Baker's,301,3.0,,582034
+01/27/2018,Baker's,300,,-7.5,582033
+Total,,,3.0,-7.5

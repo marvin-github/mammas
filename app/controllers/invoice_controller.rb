@@ -189,6 +189,7 @@ class InvoiceController < ApplicationController
   end
 
   def display_pdf
+    #<%= link_to 'Print', print_path(:invoice => @invoice, format: "pdf"),  :class => "btn btn-primary"  %>
     @invoice = Invoice.find(params[:id])
     respond_to do |format|
       format.html
@@ -210,7 +211,7 @@ class InvoiceController < ApplicationController
       format.pdf do
         pdf = SmallInvoicePdf.new(@invoice)
         send_data pdf.render,
-                  filename: 'invoice.pdf',
+                  filename: "#{@invoice.id}-#{@invoice.merchant.merchant_name}-#{@invoice.merchant.store_number}-invoice.pdf",
                   type: 'application/pdf',
                   disposition: 'inline'
       end
@@ -218,7 +219,7 @@ class InvoiceController < ApplicationController
   end
 
 
-  def download
+  def download2
     invoices = Invoice.where("start_date between ? and ? and account_type = ?", params[:start_date], params[:end_date], params[:account_type]).order({ start_date: :asc })
     puts invoices
     invoice_ids = Array.new
@@ -245,6 +246,63 @@ class InvoiceController < ApplicationController
     end
   end
 
+
+  def download
+    credit_total = 0.0
+    debit_total = 0.0
+    invoices = Invoice
+                    .joins(:invoice_items, :merchant)
+                    .group(:invoice_id)
+                    .where("start_date between ? and ? and invoices.account_type = ?", params[:start_date], params[:end_date], params[:account_type])
+                    .order('start_date', 'merchant_id', 'merchants.store_number')
+                    .select('start_date, merchant_id, merchants.store_number, sum(invoice_items.cost) as total, invoices.id')
+
+
+    if invoices.empty?
+      flash[:danger] = "No invoices found dates #{ params[:start_date]} and #{ params[:end_date]}"
+      redirect_to invoice_index_path
+    else
+      invoices.each do |i|
+        if i.total > 0
+          credit_total =+ i.total
+        else
+          debit_total =+ i.total
+        end
+      end
+
+      export_dd = []
+      first_line = true
+
+      CSV.open("invoice_download_#{Date.today}.csv", "wb") do |csv|
+        invoices.each do |invoice|
+          if first_line
+            export_dd = %w(Invoice_Date Merchant Store_Number Cost Credit Invoice_Number)
+            csv << export_dd
+            export_dd = []
+            first_line = false
+          end
+          export_dd << invoice.start_date.strftime('%m/%d/%Y')
+          export_dd << invoice.merchant.merchant_name
+          export_dd << invoice.merchant.store_number
+          export_dd << (invoice.total > 0.0 ? invoice.total : nil)
+          export_dd << (invoice.total < 0.0 ? invoice.total : nil)
+          export_dd << invoice.id
+          csv << export_dd
+          export_dd = []
+        end
+      end
+
+      CSV.open("invoice_download_#{Date.today}.csv", "a+") do |csv|
+        export_dd[0] = 'Total'
+        export_dd[3] = credit_total
+        export_dd[4] = debit_total
+        csv << export_dd
+      end
+    end
+
+    send_file "invoice_download_#{Date.today}.csv"
+
+  end
 
   def email_invoice
     @invoice = Invoice.find(params[:id])
