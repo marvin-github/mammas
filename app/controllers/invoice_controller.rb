@@ -4,8 +4,9 @@ class InvoiceController < ApplicationController
 
   def index
     last_7_days = Time.now
-    last_7_days - (60 * 60 * 168)
-    @invoice = Invoice.limit(10).order('start_date DESC')
+    #last_7_days - (60 * 60 * 168)
+    last_7_days - 30
+    @invoice = Invoice.limit(150).order('start_date DESC')
 
   end
 
@@ -48,9 +49,15 @@ class InvoiceController < ApplicationController
     puts 'mmmmmmmm'
     puts params[:invoice].fetch(:merchant_id)
     merchant = Merchant.find(params[:invoice].fetch(:merchant_id))
-    puts 'ppppppp'
+    puts 'zzz-1111'
     puts merchant.inspect
     @invoice.account_type = merchant.account_type
+
+    #@invoice.start_date = Time.new-21600
+    @invoice.start_date = Time.new
+    puts @invoice.start_date
+
+
     if @invoice.save
       flash[:notice] = "Invoice has been created"
       puts 'zzz-invoice_controller.create'
@@ -268,7 +275,7 @@ class InvoiceController < ApplicationController
         else
           debit_total += i.total
         end
-      end
+    end
 
       export_dd = []
       first_line = true
