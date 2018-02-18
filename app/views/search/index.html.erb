@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Search</h1>
+
+  <%= form_tag(search_invoice_number_path, method: "get") do %>
+    <div  class="table-responsive">
+      <table class="table">
+        <tr>
+          <td><%= text_field_tag(:invoice_number, nil, placeholder: 'invoice number') %></td>
+          <td><%= submit_tag("Search", class: "btn btn-primary") %></td>
+        </tr>
+      </table>
+    </div>
+  <% end %>
+
+  <%= form_tag(search_invoice_date_path, method: "get") do %>
+    <div  class="table-responsive">
+      <table class="table">
+        <tr>
+          <td><%= text_field_tag(:invoice_date, nil, placeholder: 'yyyy-mm-dd') %></td>
+          <td><%= submit_tag("Search", class: "btn btn-primary") %></td>
+        </tr>
+      </table>
+    </div>
+    <% end %>
+</div>
+
+
+
+
+

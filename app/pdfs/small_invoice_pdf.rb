@@ -68,7 +68,7 @@ class SmallInvoicePdf < Prawn::Document
     move_down 15
 
     text_box "Date:",:at => [0, y - 40], :size => 14
-    text_box invoice.start_date.strftime("Created on %m/%d/%Y" + " %I:%M%p"), :at => [140, y - 40], :size => 14
+    text_box invoice.created_at.strftime("Created on %m/%d/%Y" + " %I:%M%p"), :at => [140, y - 40], :size => 14
     move_down 10
     text "___________________________________________________", :size => 14
 

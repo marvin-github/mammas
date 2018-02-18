@@ -3,10 +3,6 @@ class InvoiceController < ApplicationController
   before_action :authorize
 
   def index
-    last_7_days = Time.now
-    #last_7_days - (60 * 60 * 168)
-    last_7_days - 30
-    @invoice = Invoice.limit(150).order('start_date DESC')
 
   end
 
@@ -257,12 +253,13 @@ class InvoiceController < ApplicationController
   def download
     credit_total = 0.0
     debit_total = 0.0
+    end_date = Time.parse(params[:end_date]) + 1.day
     invoices = Invoice
                     .joins(:invoice_items, :merchant)
                     .group(:invoice_id)
-                    .where("start_date between ? and ? and invoices.account_type = ?", params[:start_date], params[:end_date], params[:account_type])
-                    .order('start_date', 'merchant_id', 'merchants.store_number')
-                    .select('start_date, merchant_id, merchants.store_number, sum(invoice_items.cost) as total, invoices.id')
+                    .where("invoices.created_at between ? and ? and invoices.account_type = ?", params[:start_date], end_date.strftime('%Y/%m/%d'), params[:account_type])
+                    .order('invoices.created_at', 'merchant_id', 'merchants.store_number')
+                    .select('invoices.created_at, merchant_id, merchants.store_number, sum(invoice_items.cost) as total, invoices.id')
 
 
     if invoices.empty?
@@ -288,7 +285,7 @@ class InvoiceController < ApplicationController
             export_dd = []
             first_line = false
           end
-          export_dd << invoice.start_date.strftime('%m/%d/%Y')
+          export_dd << invoice.created_at.strftime('%m/%d/%Y')
           export_dd << invoice.merchant.merchant_name
           export_dd << invoice.merchant.store_number
           export_dd << (invoice.total > 0.0 ? invoice.total : nil)

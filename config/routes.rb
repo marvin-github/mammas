@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'search/index'
+
   resources :merchant
   resources :item
 
@@ -16,6 +18,11 @@ Rails.application.routes.draw do
   #root to: 'gif#cool'
   root to: 'sessions#new'
   get 'menu/index'
+
+  get 'search/index'
+  get 'search/invoice_number'
+  get 'search/invoice_date'
+
   get '/invoice/download', to: 'invoice#download'
   resources :invoice
   get '/invoice/display_pdf/:id', to: 'invoice#display_pdf', as: 'print'

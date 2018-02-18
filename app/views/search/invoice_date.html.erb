@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Invoices</h1>
+  <div  class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Date</th>
+        <th>Merchant</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @invoice.each do |i| %>
+          <tr>
+            <td><%= i.created_at.strftime("%m/%d/%Y" + " %I:%M%p") %></td>
+            <td><%= link_to "#{i.merchant.merchant_name+ ' ' + i.merchant.store_number}", invoice_path(i) %></td>
+
+            <!--<td><%= link_to 'Show', invoice_path(i) %></td>-->
+            <td><%= link_to 'Edit', edit_invoice_path(i), :class => "btn btn-warning" %></td>
+            <!--<td><%= link_to 'Email', email_path(i), :class => "btn btn-warning" %></td>-->
+
+            <td><%= link_to 'Delete', invoice_path(i), :class => "btn btn-warning", method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+

@@ -5,56 +5,23 @@
         <table class="table">
           <tr>
             <td><b>Account Type:</b>  &ensp;<%= select_tag "account_type", options_for_select([["Mi Mama's",0], ['La Mexicana', 7], ['Mimick Distributing', 1]],'Mammas') %></td>
-
           </tr>
           <tr>
-
             <td><b>Start Date:</b><%= text_field_tag :start_date, nil,  class: "form-control", size: "1", value: "#{Time.now.strftime("%Y-%m-%d")}" %></td>
           </tr>
           <tr>
             <td><b>End Date:</b>  &ensp;<%= text_field_tag :end_date, nil,  class: "form-control", size: "1", value: "#{Time.now.strftime("%Y-%m-%d")}" %></td>
           </tr>
-
           <tr>
             <td><%= submit_tag "Download", class: "btn btn-primary", id: "sub" %></td></td>
             <td></td>
           </tr>
         </table>
       </div>
-
   <% end %>
-
-  <div  class="table-responsive">
-
-
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Date</th>
-        <th>Merchant</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @invoice.each do |i| %>
-          <tr>
-            <td><%= i.start_date.strftime("%Y-%m-%d") %></td>
-            <td><%= link_to "#{i.merchant.merchant_name+ ' ' + i.merchant.store_number}", invoice_path(i) %></td>
-
-            <!--<td><%= link_to 'Show', invoice_path(i) %></td>-->
-            <td><%= link_to 'Edit', edit_invoice_path(i), :class => "btn btn-warning" %></td>
-            <!--<td><%= link_to 'Email', email_path(i), :class => "btn btn-warning" %></td>-->
-
-            <td><%= link_to 'Delete', invoice_path(i), :class => "btn btn-warning", method: :delete, data: {confirm: 'Are you sure?'} %></td>
-          </tr>
-      <% end %>
-      </tbody>
-    </table>
-
-  </div>
-
 </div>
 
-<br>
+
 
 
 
