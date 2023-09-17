@@ -224,6 +224,9 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   matrix
   mysql2 (>= 0.3.18, < 0.5)
+  net-imap
+  net-pop
+  net-smtp
   nokogiri
   open-uri
   prawn

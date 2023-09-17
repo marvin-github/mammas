@@ -6,6 +6,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 gem 'matrix'
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 gem 'nokogiri'
 gem 'open-uri'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
