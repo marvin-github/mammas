@@ -9,6 +9,7 @@ gem 'matrix'
 gem 'net-smtp', require: false
 gem 'net-imap', require: false
 gem 'net-pop', require: false
+gem 'e2mmap'
 gem 'nokogiri'
 gem 'open-uri'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
