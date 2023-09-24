@@ -67,9 +67,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
-    date (3.3.1)
     digest (3.1.1)
-    e2mmap (0.1.0)
     erubi (1.12.0)
     execjs (2.9.1)
     ffi (1.15.5)
@@ -97,10 +95,8 @@ GEM
       net-imap
       net-pop
       net-smtp
-    matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.6.1)
     minitest (5.15.0)
     mysql2 (0.4.10)
     net-imap (0.2.2)
@@ -117,13 +113,8 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.9)
-    nokogiri (1.12.5)
-      mini_portile2 (~> 2.6.1)
+    nokogiri (1.12.5-x86_64-darwin)
       racc (~> 1.4)
-    open-uri (0.3.0)
-      stringio
-      time
-      uri
     pdf-core (0.9.0)
     prawn (2.4.0)
       pdf-core (~> 0.9.0)
@@ -194,13 +185,10 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    stringio (3.0.6)
     strscan (3.0.6)
     thor (1.2.2)
     thread_safe (0.3.6)
     tilt (2.3.0)
-    time (0.2.2)
-      date
     timeout (0.4.0)
     ttfunk (1.7.0)
     turbolinks (5.2.1)
@@ -210,7 +198,6 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
-    uri (0.12.2)
     web-console (3.7.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -231,17 +218,10 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
-  e2mmap
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
-  matrix
   mysql2 (>= 0.3.18, < 0.5)
-  net-imap
-  net-pop
-  net-smtp
-  nokogiri
-  open-uri
   prawn
   puma (~> 3.7)
   rails (~> 5.1.3)
