@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 ######## start
-ruby '2.5.8'
+#ruby '2.5.8'
 #gem 'matrix'
 #gem 'net-smtp', require: false
 #gem 'net-imap', require: false
