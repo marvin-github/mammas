@@ -7,7 +7,7 @@ class InvoiceController < ApplicationController
   end
 
   def new
-
+#using heroku stack 22
     @account_type =  params[:account_type]
     puts @account_type
     @invoice = Invoice.new
