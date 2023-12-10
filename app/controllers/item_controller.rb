@@ -56,7 +56,9 @@ class ItemController < ApplicationController
     :mimick_item,
     :mexicana_item,
     :mamas_item,
-    :discount_end_date)
+    :discount_end_date,
+    :colby_ridge_item,
+    :product_number)
 
   end
 end

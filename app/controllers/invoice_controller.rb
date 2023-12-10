@@ -19,6 +19,8 @@ class InvoiceController < ApplicationController
         @item = Item.where(mimick_item: true)
       when "7"
         @item = Item.where(mexicana_item: true)
+      when "9"
+        @item = Item.where(colby_ridge_item: true)
     end
 
 
@@ -65,6 +67,8 @@ class InvoiceController < ApplicationController
         when 1
           item_list = Item.where(mimick_item: true)
         when 7
+          item_list = Item.where(mexicana_item: true)
+        when 9
           item_list = Item.where(mexicana_item: true)
       end
       item_list.each do |i|

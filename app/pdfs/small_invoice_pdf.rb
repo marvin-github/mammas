@@ -40,6 +40,17 @@ class SmallInvoicePdf < Prawn::Document
         move_down 1
         break
       end
+
+      if account_type == 9
+        text "Mimick Distributing Incorporated",  :size => 20
+
+        text "16017 Weber Street",  :size => 14
+        text "Bennington, NE 68007",  :size => 14
+        text "(402) 871-7831",  :size => 14
+        text "mimickdistributing@hotmail.com",  :size => 14
+        move_down 1
+        break
+      end
     end
     text "___________________________________________________", :size => 14
     move_down 1
@@ -87,6 +98,7 @@ class SmallInvoicePdf < Prawn::Document
     #text_box "Cost",   :at => [350, y - 40], :size => 14, :style => :bold
     text_box "Cost",   :at => [370, y - 40], :size => 14, :style => :bold
     text_box "Ext Price",   :at => [425, y - 40], :size => 14, :style => :bold
+
     move_down 25
 
     invoice.invoice_items.each do |i|
@@ -112,7 +124,7 @@ class SmallInvoicePdf < Prawn::Document
         cash += i.item.unit_cost * i.quantity
       end
       move_down 15
-      text_box i.item.package_counts,   :at => [120, y - 40], :size => 14
+      text_box i.item.package_counts.nil? ? '' : i.item.package_counts,   :at => [120, y - 40], :size => 14
       move_down 20
 
     end

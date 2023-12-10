@@ -47,6 +47,18 @@ class InvoicePdf < Prawn::Document
         move_down 15
         break
       end
+      if account_type == 9
+        text "Mimick Distributing Incorporated", :align => :center, :size => 11
+
+        text "16017 Weber Street", :align => :center, :size => 11
+        text "Bennington, NE 68007", :align => :center, :size => 11
+        text "(402) 871-7831", :align => :center, :size => 11
+        text "mimickdistributing@hotmail.com", :align => :center, :size => 11
+        text DateTime.parse(time).strftime("%m/%d/%Y %H:%M:%S"), :align => :center, :size => 11
+        text "_" * 80
+        move_down 15
+        break
+      end
     end
     text_box "Invoice Number:", :at => [0, y - 40], :size => 11
     text_box  invoice.id.to_s, :at => [145, y - 40], :size => 11
