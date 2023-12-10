@@ -63,7 +63,7 @@
       <% puts type %>
       <div class="form-group">
         <%= label_tag :account_type, "Account Type" %>
-        <%= f.select :account_type, options_for_select([['Mimick Distributing', 1], ["Mi Mama's", 0]], @merchant.account_type), class: "form-control" %>
+        <%= f.select :account_type, options_for_select([['Mimick Distributing', 1], ["Mi Mama's", 0], ["Colby Ridge", 9]], @merchant.account_type), class: "form-control" %>
       </div>
 
       <%= submit_tag "Submit", class: "btn btn-primary" %>

@@ -27,6 +27,9 @@
         <% if @account_type == '7' %>
             <%= f.select :merchant_id, Merchant.where('account_type = 0').order(merchant_name: :asc, store_number: :asc).collect {|m| [m.merchant_name + '-' + m.store_number, m.id]}, include_blank: true, class: "form-control" %>
         <% end %>
+        <% if @account_type == '9' %>
+            <%= f.select :merchant_id, Merchant.where('account_type = 9').order(merchant_name: :asc, store_number: :asc).collect {|m| [m.merchant_name + '-' + m.store_number, m.id]}, include_blank: true, class: "form-control" %>
+        <% end %>
       </div>
 
       <div class="form-group">

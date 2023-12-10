@@ -6,6 +6,7 @@
       <thead>
       <tr>
         <th>Upc</th>
+        <th>Product #</th>
         <th>Start</th>
         <th>End</th>
         <th>Amount</th>
@@ -15,6 +16,8 @@
       <% @item.each do |i| %>
           <tr>
             <td><%= i.upc %></td>
+
+            <td><%= i.product_number %></td>
 
             <% unless i.discount_start_date %>
               <td><%= i.discount_start_date %></td>

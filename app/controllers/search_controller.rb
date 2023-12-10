@@ -13,7 +13,9 @@ class SearchController < ApplicationController
   end
 
   def invoice_date
-    @invoice = Invoice.where('start_date = ?', params[:invoice_date])
+    start_date = Time.parse(params[:invoice_date])
+    end_date = Time.parse(params[:invoice_date]) + 1.day
+    @invoice = Invoice.where('start_date between ? and ?', start_date, end_date)
 
     if @invoice.size == 0
       flash[:error] = "No invoices found on #{params[:invoice_date]}"
