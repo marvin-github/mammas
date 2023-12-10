@@ -3,7 +3,7 @@ class SmallInvoicePdf < Prawn::Document
 
   def initialize(invoice)
     super(top_margin: 70)
-    font_size = 10
+    font_size =  10
     account_type = invoice.merchant.account_type
     time = Time.now.to_s
 
@@ -100,8 +100,10 @@ class SmallInvoicePdf < Prawn::Document
     text_box "Ext Price",   :at => [425, y - 40], :size => 14, :style => :bold
 
     move_down 25
-
     invoice.invoice_items.each do |i|
+      if cursor < 24
+        start_new_page
+      end
       #text i.item.upc + '  |  ' +   i.item.description  + '  |  '  + i.quantity.to_s + '  |  ' + sprintf('%.2f',i.item.unit_cost).to_s
       text_box i.item.upc,      :at => [0, y - 40], :size => 14
       text_box i.item.description,   :at => [120, y - 40], :size => 14
@@ -128,7 +130,7 @@ class SmallInvoicePdf < Prawn::Document
       move_down 20
 
     end
-    move_down 30
+    move_down 50 #30
     draw_text "Grand Total",   :at => [0, y - 40], :size => 14
     draw_text quantity_total.to_s,   :at => [315, y - 40], :size => 14
     #draw_text "Total",:at => [350, y - 40], :size => 14
