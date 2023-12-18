@@ -8,7 +8,11 @@ class MerchantController < ApplicationController
   end
 
   def show
-    @merchant = Merchant.find(params[:id])
+    old_record = Merchant.find(params[:id])
+    new_record = old_record.dup
+
+    new_record.save
+    redirect_to edit_merchant_path(new_record.id)
   end
 
   def edit
@@ -30,10 +34,10 @@ class MerchantController < ApplicationController
   end
 
 
-
   def create
 
     @merchant = Merchant.new(merchant_params)
+
 
     if @merchant.save
       flash[:notice] = "Merchant has been created"

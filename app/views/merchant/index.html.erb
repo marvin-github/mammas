@@ -6,18 +6,28 @@
       <thead>
       <tr>
         <th>Merchant</th>
+        <th>Group</th>
         <th>Discount</th>
       </tr>
       </thead>
       <tbody>
       <% @merchant.each do |m| %>
+      <% if m.account_type == 1
+           account = 'Mimick'
+         elsif m.account_type == 0
+           account = 'Mammas'
+         else
+           account = 'Colby'
+         end
+      %>
           <tr>
             <td><%= m.merchant_name + ' ' + m.store_number %></td>
+            <td><%= account %></td>
             <td><%= m.discount %></td>
+            <%m.id == nil %>
             <td><%= link_to 'Edit', edit_merchant_path(m), :class => "btn btn-warning"  %></td>
+            <td><%= link_to 'Duplicate', merchant_path(m), :class => "btn btn-warning"  %></td>
           </tr>
-
-
 
 
       <% end %>

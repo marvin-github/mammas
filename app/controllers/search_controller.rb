@@ -12,6 +12,7 @@ class SearchController < ApplicationController
 
   end
 
+
   def invoice_date
     start_date = Time.parse(params[:invoice_date])
     end_date = Time.parse(params[:invoice_date]) + 1.day

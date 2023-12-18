@@ -9,7 +9,6 @@ class InvoiceController < ApplicationController
   def new
 #using heroku stack 22
     @account_type =  params[:account_type]
-    puts @account_type
     @invoice = Invoice.new
 
     case @account_type
@@ -172,7 +171,21 @@ class InvoiceController < ApplicationController
   end
 
   def edit
-    @items = Item.all
+    inv = Invoice.find(params[:id])
+    m = Merchant.find(inv.merchant_id)
+
+    case m.account_type
+      when 0
+        @items = Item.where("mamas_item = 1")
+      when 1
+        @items = Item.where("mimick_item = 1 or mexicana_item = 1")
+      when 9
+        @items = Item.where("colby_ridge_item = 1")
+      when 7
+        @items = Item.where("mexicana_item = 1")
+    end
+
+    #@items = Item.all
     @invoiceItems = Hash.new
     @quantities = Hash.new
     @invoice = Invoice.find(params[:id])
