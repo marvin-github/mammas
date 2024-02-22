@@ -42,12 +42,12 @@ class SmallInvoicePdf < Prawn::Document
       end
 
       if account_type == 9
-        text "Mimick Distributing Incorporated",  :size => 20
+        text "Corn & More Inc",  :size => 20
 
-        text "16017 Weber Street",  :size => 14
-        text "Bennington, NE 68007",  :size => 14
-        text "(402) 871-7831",  :size => 14
-        text "mimickdistributing@hotmail.com",  :size => 14
+        text "dba Colby Ridge Popcorn",  :size => 14
+        text "Lincoln, NE 68512",  :size => 14
+        text "(402) 328-2836",  :size => 14
+        #text "mimickdistributing@hotmail.com",  :size => 14
         move_down 1
         break
       end
