@@ -16,7 +16,13 @@ class SearchController < ApplicationController
   def invoice_date
     start_date = Time.parse(params[:invoice_date])
     end_date = Time.parse(params[:invoice_date]) + 1.day
-    @invoice = Invoice.where('start_date between ? and ?', start_date, end_date)
+    @user = User.find(session[:user_id])
+
+    if @user.name == 'cr_admin'
+      @invoice = Invoice.where('start_date between ? and ? and account_type = ?', start_date, end_date, 9)
+    else
+      @invoice = Invoice.where('start_date between ? and ?', start_date, end_date)
+    end
 
     if @invoice.size == 0
       flash[:error] = "No invoices found on #{params[:invoice_date]}"

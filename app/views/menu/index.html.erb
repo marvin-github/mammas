@@ -47,7 +47,19 @@
             <!--<tr><li><%=	 link_to "Accounts", signup_path %></li></tr>-->
             <tr><%=	 link_to "Admin", signup_path, :class => "btn btn-warning" %></tr>
           <!--</ul>-->
-        <% else %>
+        <% elsif @user.name == 'cr_admin' %>
+
+          <!--<tr><li><%=	 link_to "Colby Ridge", new_invoice_path(:account_type =>  9 ) %></li></tr>-->
+          <tr><%=	 link_to "Colby Ridge", new_invoice_path(:account_type =>  9), :class => "btn btn-primary"  %></tr>
+          <tr><br><br></tr>
+
+          <!--<tr><li><%=	 link_to "Download Invoices", invoice_index_path %></li></tr>-->
+          <tr><%=	 link_to "Download Invoices", invoice_index_path, :class => "btn btn-warning" %></tr>
+          <tr><br><br></tr>
+          <tr><%=	 link_to "Search", search_index_path, :class => "btn btn-warning" %></tr>
+          <tr><br><br></tr>
+
+          <%else%>
           <!--<ul class="nav nav-pills nav-stacked">-->
 
             <!--<tr><li><%=	 link_to "Mimick Distributing", new_invoice_path(:account_type =>  1 ) %></li></tr>-->
