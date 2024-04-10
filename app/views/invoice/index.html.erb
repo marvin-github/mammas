@@ -7,7 +7,7 @@
             <%if @current_user.name == 'cr_admin'%>
               <td><b>Account Type:</b>  &ensp;<%= select_tag "account_type", options_for_select([["Colby Ridge",9]],'Colby Ridge') %></td>
             <%else%>
-              <td><b>Account Type:</b>  &ensp;<%= select_tag "account_type", options_for_select([["Mi Mama's",0], ['La Mexicana', 7], ['Mimick Distributing', 1]],'Mammas') %></td>
+              <td><b>Account Type:</b>  &ensp;<%= select_tag "account_type", options_for_select([["Mi Mama's",0], ['La Mexicana', 7], ['Mimick Distributing', 1], ["Colby Ridge",9]],'Mammas') %></td>
             <%end%>
           </tr>
           <tr>

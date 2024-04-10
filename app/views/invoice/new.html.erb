@@ -50,6 +50,7 @@
           <tr>
             <td><h4>Quantity</h4></td>
             <td><h4>Item</h4></td>
+            <td><h4>Product #</h4></td>
             <td></td>
           </tr>
           <br><br>
@@ -57,6 +58,8 @@
               <tr>
                 <td><%= number_field_tag "quantity" + i.id.to_s,  nil, placeholder: "0",  class: "box_text", size: "3" %></td>
                 <td><%= label_tag :item, i.upc %></td>
+                <% v = i.product_number == nil ? '' : i.product_number %>
+                <td><%= label_tag :product_number, v %></td>
                 <td><%= check_box_tag 'selections[]', i.id,  false, class: "quantity" + i.id.to_s %></td>
               </tr>
           <% end %>
